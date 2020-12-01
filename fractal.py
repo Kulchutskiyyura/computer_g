@@ -4,21 +4,36 @@
 
 import numpy as np
 import datetime
+import math
 
-rootlist = {}
+#розвязуємо рівняння н-го степення
+def return_root(n, const:complex):
+    const = -complex(const)
+    r = math.pow(math.sqrt(const.real**2+const.imag**2), 1/n)
+    x = const.real
+    y = const.imag
+    alf = None
+    if x>0:
+        alf = math.atan(y/x)
+    elif x<0:
+        alf = math.pi - math.atan(y/x)
+    elif y>0:
+        alf = math.pi/2
+    else: 
+        alf = -math.pi/2
+    roots = []
+    for i in range(n):
+        x = r*math.cos((alf+i*2*math.pi)/n)
+        y = r*math.sin((alf+i*2*math.pi)/n)
+        roots.append(complex(x, y))
+    return roots
+
+
 #наша 1 формула
-def npe1(x):
-    return (x ** 2 - 1) * (x ** 2 + 1) / (2 * x * (x ** 2 - 1) + 2 * x * (x ** 2 + 1))
+def npe1(x, n, const=1):
+    return (x ** n + const) / (n * x ** (n-1))
 
 
-rootlist['npe1'] = [-1, 1, -1j, 1j]
-
-#наша 2 формула
-def npe2(x):
-    return (x ** 3 - 1) / (3 * x ** 2)
-
-
-rootlist['npe2'] = [-.5 - 0.8660254037844386j, -.5 + 0.8660254037844386j, 1]
 
 
 def id_root(zl, rlist):
@@ -54,7 +69,7 @@ yvals = np.linspace(interval_down, interval_up, num=num_y)
 
 
 # головна функція
-def plot_newton_fractal(func_string, perfom_shading=False):
+def plot_newton_fractal(func_string, n, const):
     #перетворюємо масив точок в комплексні числа
     zlist = []
     for x in xvals:
@@ -62,8 +77,8 @@ def plot_newton_fractal(func_string, perfom_shading=False):
             zlist.append(x + 1j * y)
 
     
-    reslist = np.array(zlist).astype(int)
-    reldiff = np.ones(len(reslist)).astype(int)
+    reslist = np.array(zlist)
+    reldiff = np.ones(len(reslist))
     counter = np.zeros(len(reslist)).astype(int)
    
     overallcounter = 0
@@ -72,7 +87,7 @@ def plot_newton_fractal(func_string, perfom_shading=False):
    
     #головний цикл
     while np.any(reldiff) > prec_goal and overallcounter < nmax:
-        diff = eval(func_string + '(reslist)')
+        diff = npe1(reslist, n, const)
         z1list = reslist - diff
         reldiff = np.abs(diff / reslist)
        
@@ -81,9 +96,12 @@ def plot_newton_fractal(func_string, perfom_shading=False):
         counter = counter + np.greater(reldiff, prec_goal_list)
         overallcounter += 1
 
+    rootlist = return_root(n, const)
+    nroot = id_root(z1list, rootlist).astype(int)
   
-    nroot = id_root(z1list, rootlist[func_string]).astype(int)
-    return {"root": list(nroot), "counter": list(counter)}
+    return [ list(nroot), list(counter)]
 
 
+
+plot_newton_fractal("k", 3, complex(4,2))
 
