@@ -23,40 +23,123 @@
         }
 
     </script>
+  
+    <style>
+  .main_panel{
+  display:flex;
+  flex-direction: row; 
+  justify-content: space-between;
+  background-color: floralwhite;
+      }
+    </style>
+    <div class="main_panel">
+      <div>
+        <a href="http://127.0.0.1:5000/">Home</a>
+        <a href="http://127.0.0.1:5000/">Файл</a>
+       <a href="http://127.0.0.1:5000/">Бібліотека</a>
+      </div>
+       <h1>Комнютерна графіка</h1>
+       <a href="http://127.0.0.1:5000/">Уроки та приклади</a>
+    </div>
+    
     <div class="container">
-        
-        <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create Fractal</button>
       
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
-         
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-body">
-                <p>Some text in the modal.</p>
-              </div>
-              <form method="POST">
-                <label for="power">X power</label>
-                <input name="power" type="number" id="power">
-                <label for="constant">Constant</label>
-                <input name="constant" type="number" id="constant">
-                <div class="modal-footer">
-                    <input type="submit" value="ok">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Calcel</button>
-                  </div>
-            </form>
-              
+    <style>
+      .second_panel{
+      display:flex;
+      flex-direction: row; 
+      justify-content:center;
+      background-color: floralwhite;
+          }
+        </style>
+      <div class="second_panel">
+        <input>
+        <button >Зберегти</button>
+        <button >undo</button>
+        <button >redu</button>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create Fractal</button>
+        <a href="http://127.0.0.1:5000/">Фото</a>
+        <a href="http://127.0.0.1:5000/">Колірна модель</a>
+        <a href="http://127.0.0.1:5000/">Фігура</a>
+        <input type="checkbox">
+        <input>
+      </div>
+      <!-- Trigger the modal with a button -->
+     
+    
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+       
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-body">
+              <h1>Створити фрактал Нютона</h1>
+              <p>Для створення фракталу введіть константу у вигляді комплексного <br>числа у форматі  z = a + bi та виберіть кольорову схему. </p>
             </div>
+            <form method="POST">
+              <div>
+              <label for="power">степінь</label>
+              <select size="1" name="power" id="power">
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+              </div>
+             
+              <div>
+              <label for="color_type">Колірна схема</label><br>
+              <select size="1" name="color_type" id="color_type">
+                <option value="0">Синій</option>
+                <option selected value="1">Червоний</option>
+                <option value="2">Жовтий</option>
+                <option value="3">Зелений</option>
+              </select>
+              </div>
+              <div>
+                <label for="constant_i">Реальна частина(а)</label><br>
+                <input name="constant_i" type="number" id="constant_i" step="0.01"><br>
+                <label for="constant_j">Уявна частина(b)</label><br>
+                <input name="constant_j" type="number" id="constant_j" step="0.01">
+             
+                </div>
+              <div class="modal-footer">
+                  <input type="submit" value="ok">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Calcel</button>
+                </div>
+          </form>
             
           </div>
+          
         </div>
-        
       </div>
+      
+    </div>
+    <style>
+      .grafic
+      {
+        background-color: lightblue;
+       
+        display:flex;
+       
+    flex-direction: row; 
+    justify-content: space-between;
+      }
+    body
+    {
+      background-color: lightblue;
+    }
+
+    .input_grafic
+    {
+      margin-left: 500px;
+    }
+      
+    </style>
     <div class="grafic">
+      <div class="input_grafic">
         <canvas id="myCanvas"></canvas>
         <legend for="myCanvas"></legend>
+      </div>
     </div>
     <script>
         function rgb(r, g, b){
@@ -74,7 +157,7 @@
       	var radius = 0.5 * size;
 
       	// to increase smoothing for numbers with decimal part
-		var pointX = Math.round(x - radius);
+		    var pointX = Math.round(x - radius);
         var pointY = Math.round(y - radius);
   
         context.beginPath();
@@ -91,8 +174,13 @@
         var context =  myCanvas.getContext('2d');
         myCanvas.width = 500;
         myCanvas.height = 500;
-        colors={"0":[45,75,47],"1":[93,5,4],"2":[93,5,4]}
+        colors1={"0":[45,75,47],"1":[93,5,4],"2":[93,5,4],"3":[255	,153	,102]}
+        colors2={"0":[0	,127,	255],"1":[0	,255,	255],"2":[59	,68	,75],"3":[93,138,168]}
+        colors3={"0":[251	,206,	177],"1":[	241	,156,	187],"2":[251	,206,	177],"3":[255,	126,	0]}
+        colors4={"0":[227,	38,	54],"1":[229,	43,	80],"2":[241,	156,	187],"3":[255,	191	,0]}
+        var color_models = [colors1, colors2, colors3, colors4]
         var obj = {{json_obj}}
+        var color_type = {{color_type}}
         console.log(obj)
         x=0
         y=0
@@ -101,9 +189,10 @@
         arr = [0,0,0]
         if(obj[0][i]!=-1)
         {
-            arr = colors[obj[0][i]]
-            arr[obj[0][i]] += obj[1][i]
-            arr[0] += obj[1][i]
+            arr = color_models[color_type][obj[0][i]]
+            //console.log(color_type)
+            //arr[obj[0][i]] += obj[1][i]
+           // arr[0] += obj[1][i]
                
         }
         
@@ -115,7 +204,17 @@
                 y++;
             }
         }
+      
 
+          $("#myCanvas").click(function(e) {
+            var form = $('<form action="http://127.0.0.1:5000/" method="POST">' + 
+    '<input type="hidden" name="x_pos" value="' +  e.offsetX + '">' +
+    '<input type="hidden" name="y_pos" value="' +  e.offsetY + '">'+
+    '<input type="hidden" name="type" value="' + "ajax" + '">'+
+    '</form>')
+    $(document.body).append(form);
+    form.submit();
+});
         
     </script>
 

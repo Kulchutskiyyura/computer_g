@@ -40,19 +40,11 @@ def npe1(x, n, const=1):
 def id_root(number_list, root_list):
     exp_list = 1.e-10 * np.ones(len(number_list))
     root_number_list = -1 * np.ones(len(number_list))
-    for r in root_list:
+    for r in root_list: 
         # check for closeness to each root in the list
         root_number_list = np.where(np.abs(number_list - r * np.ones(len(number_list))) < exp_list, np.ones(len(number_list)) * root_list.index(r), root_number_list)
 
     return root_number_list
-
-
-
-#задаємо початкові значення для пошуку(поки можеш не заморочуватись що то таке)
-interval_left = -2.1
-interval_right = 2.1
-interval_down = -2.1
-interval_up = 2.1
 
 #кількість точок по х і у
 x_number = 500
@@ -65,12 +57,18 @@ exp = 1.e-11
 max_iteration_number = 50
 
 #створюємо масив з кординатами точок по х і у
-x_coordinat_list = np.linspace(interval_left, interval_right, num=x_number)
-y_coordinats_list = np.linspace(interval_down, interval_up, num=y_number)
+
 
 
 # головна функція
-def plot_newton_fractal(func_string, x_power, const):
+def plot_newton_fractal(func_string, x_power, const,x_min, y_min, x_max, y_max):
+    interval_left = x_min
+    interval_right = x_max
+    interval_down = y_min
+    interval_up = y_max
+    
+    x_coordinat_list = np.linspace(interval_left, interval_right, num=x_number)
+    y_coordinats_list = np.linspace(interval_down, interval_up, num=y_number)
     #перетворюємо масив точок в комплексні числа
     complex_numbers = []
     for x in x_coordinat_list:
@@ -99,3 +97,7 @@ def plot_newton_fractal(func_string, x_power, const):
     number_of_roots_list = id_root(complex_numbers_list, roots_list).astype(int)
   
     return [list(number_of_roots_list), list(counter_list)]
+
+
+
+#plot_newton_fractal("k", 4 ,complex(4,5) )
