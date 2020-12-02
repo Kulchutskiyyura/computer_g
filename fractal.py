@@ -7,17 +7,18 @@ import datetime
 import math
 
 #розвязуємо рівняння н-го степення
-def return_root(n, const:complex):
-    const = -complex(const)
+def find_roots(n, const:complex):
+    const = complex(const)
+    const = complex(-const.real, const.imag)
     r = math.pow(math.sqrt(const.real**2+const.imag**2), 1/n)
     x = const.real
     y = const.imag
     alf = None
-    if x>0:
+    if x > 0:
         alf = math.atan(y/x)
-    elif x<0:
+    elif x < 0:
         alf = math.pi - math.atan(y/x)
-    elif y>0:
+    elif y > 0:
         alf = math.pi/2
     else: 
         alf = -math.pi/2
@@ -36,14 +37,14 @@ def npe1(x, n, const=1):
 
 
 
-def id_root(zl, rlist):
-    findgoal = 1.e-10 * np.ones(len(zl))
-    rootid = -1 * np.ones(len(zl))
-    for r in rlist:
+def id_root(number_list, root_list):
+    exp_list = 1.e-10 * np.ones(len(number_list))
+    root_number_list = -1 * np.ones(len(number_list))
+    for r in root_list:
         # check for closeness to each root in the list
-        rootid = np.where(np.abs(zl - r * np.ones(len(zl))) < findgoal, np.ones(len(zl)) * rlist.index(r), rootid)
+        root_number_list = np.where(np.abs(number_list - r * np.ones(len(number_list))) < exp_list, np.ones(len(number_list)) * root_list.index(r), root_number_list)
 
-    return rootid
+    return root_number_list
 
 
 
@@ -54,54 +55,47 @@ interval_down = -2.1
 interval_up = 2.1
 
 #кількість точок по х і у
-num_x = 500
-num_y = 500
+x_number = 500
+y_number = 500
 
 #точність
-prec_goal = 1.e-11
+exp = 1.e-11
 
 #максимальна кількість ітерацій
-nmax = 50
+max_iteration_number = 50
 
 #створюємо масив з кординатами точок по х і у
-xvals = np.linspace(interval_left, interval_right, num=num_x)
-yvals = np.linspace(interval_down, interval_up, num=num_y)
+x_coordinat_list = np.linspace(interval_left, interval_right, num=x_number)
+y_coordinats_list = np.linspace(interval_down, interval_up, num=y_number)
 
 
 # головна функція
-def plot_newton_fractal(func_string, n, const):
+def plot_newton_fractal(func_string, x_power, const):
     #перетворюємо масив точок в комплексні числа
-    zlist = []
-    for x in xvals:
-        for y in yvals:
-            zlist.append(x + 1j * y)
+    complex_numbers = []
+    for x in x_coordinat_list:
+        for y in y_coordinats_list:
+            complex_numbers.append(x + 1j * y)
 
     
-    reslist = np.array(zlist)
-    reldiff = np.ones(len(reslist))
-    counter = np.zeros(len(reslist)).astype(int)
+    complex_numbers_list = np.array(complex_numbers)
+    diff_list = np.ones(len(complex_numbers_list))
+    counter_list = np.zeros(len(complex_numbers_list)).astype(int)
    
-    overallcounter = 0
+    number_of_iteration = 0
     
-    prec_goal_list = np.ones(len(reslist)) * prec_goal
+    prec_goal_list = np.ones(len(complex_numbers_list)) * exp
    
     #головний цикл
-    while np.any(reldiff) > prec_goal and overallcounter < nmax:
-        diff = npe1(reslist, n, const)
-        z1list = reslist - diff
-        reldiff = np.abs(diff / reslist)
-       
-        reslist = z1list
-       
-        counter = counter + np.greater(reldiff, prec_goal_list)
-        overallcounter += 1
+    while np.any(diff_list) > exp and number_of_iteration < max_iteration_number:
+        diff = npe1(complex_numbers_list, x_power, const)
+        diff_list = np.abs(diff / complex_numbers_list)
+        complex_numbers_list = complex_numbers_list - diff
 
-    rootlist = return_root(n, const)
-    nroot = id_root(z1list, rootlist).astype(int)
+        counter_list = counter_list + np.greater(diff_list, prec_goal_list)
+        number_of_iteration += 1
+
+    roots_list = find_roots(x_power, const)
+    number_of_roots_list = id_root(complex_numbers_list, roots_list).astype(int)
   
-    return [ list(nroot), list(counter)]
-
-
-
-plot_newton_fractal("k", 3, complex(4,2))
-
+    return [list(number_of_roots_list), list(counter_list)]
