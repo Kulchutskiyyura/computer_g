@@ -33,15 +33,18 @@ def main():
             #print(return_dict)
         else:
           
-            limits = [-4, -4, 4, 4]
+           
             power = int(request.form.get("power"))
             color_type = int(request.form.get("color_type"))
+            zoom = int(request.form.get("zoom"))
             constant = complex(
                 float(request.form.get("constant_i")), 
                 float(request.form.get("constant_j"))
             )
+            limits = [-zoom , -zoom , zoom , zoom ]
             print("constant:  ", constant)
             global_dict.update({"power":power, "const":constant, "color":color_type})
+            print(limits)
             return_dict = plot_newton_fractal("npe1", power, constant,*limits)
     else:
         return_dict = plot_newton_fractal("npe1",3, 5,*limits)

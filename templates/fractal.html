@@ -29,39 +29,67 @@
   display:flex;
   flex-direction: row; 
   justify-content: space-between;
-  background-color: floralwhite;
+  background-color: white;
       }
+      .rotate90 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.inside
+{
+  display:flex;
+  justify-content:flex-start;
+}
     </style>
     <div class="main_panel">
-      <div>
-        <a href="http://127.0.0.1:5000/">Home</a>
-        <a href="http://127.0.0.1:5000/">Файл</a>
-       <a href="http://127.0.0.1:5000/">Бібліотека</a>
+      <div class="inside">
+        <a href="http://127.0.0.1:5000/">
+          <img src="static\home.png" alt="lorem" class="rotate90">   </a>
+        <a href="http://127.0.0.1:5000/"> <img src="static\file.png" alt="lorem" class="rotate90"> Файл</a>
+       <a href="http://127.0.0.1:5000/"> <img src="static\folder.png" alt="lorem" class="rotate90"> Бібліотека</a>
       </div>
-       <h1>Комнютерна графіка</h1>
-       <a href="http://127.0.0.1:5000/">Уроки та приклади</a>
+       <h1> <img src="static\unicorn.png" alt="lorem" class="rotate90">Комнютерна графіка</h1>
+       <a href="http://127.0.0.1:5000/"><img src="static\student-hat.png" alt="lorem" class="rotate90">Уроки та приклади</a>
     </div>
     
-    <div class="container">
+    <div class="contair">
       
     <style>
       .second_panel{
       display:flex;
       flex-direction: row; 
-      justify-content:center;
-      background-color: floralwhite;
+      justify-content:space-evenly;
+      background-color: lightgray;
+          }
+          .modal-content
+          {
+            
+            text-align: center;
           }
         </style>
       <div class="second_panel">
-        <input>
-        <button >Зберегти</button>
-        <button >undo</button>
-        <button >redu</button>
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create Fractal</button>
-        <a href="http://127.0.0.1:5000/">Фото</a>
-        <a href="http://127.0.0.1:5000/">Колірна модель</a>
-        <a href="http://127.0.0.1:5000/">Фігура</a>
-        <input type="checkbox">
+        <div>
+        <input value="введіть назву файлу" height="15px">
+        <button height="15px">Зберегти</button>
+      </div>
+        <button height="15px" ><img height="15px" src="static\undo.png" alt="lorem" class="rotate90"> </button>
+        <button height="15px"><img height="15px" src="static\redo.png" alt="lorem" class="rotate90"> </button>
+        <button height="20px" type="button" data-toggle="modal" data-target="#myModal" >
+          <img height="20px" src="static\firework.png" alt="lorem" class="rotate90"> Фрактал
+        </button>
+        
+        <button href="http://127.0.0.1:5000/">
+          <img src="static\gallery.png" height="20px" alt="lorem" class="rotate90"> Фото
+        </button>
+        <button href="http://127.0.0.1:5000/"> <img height="15px" src="static\palette.png" alt="lorem" class="rotate90"> Колірна модель</button>
+        <button href="http://127.0.0.1:5000/"><img height="15px" src="static\shape.png" alt="lorem" class="rotate90"> Фігура</button>
+       <div>
+        <input name="ch" id="ch" type="checkbox">
+        <label for="ch">Координатна сітка</label>
+      </div>
         <input>
       </div>
       <!-- Trigger the modal with a button -->
@@ -79,29 +107,36 @@
             </div>
             <form method="POST">
               <div>
-              <label for="power">степінь</label>
-              <select size="1" name="power" id="power">
-                <option value="3">3</option>
-                <option value="4">4</option>
+              <label  for="power">Степінь</label><br>
+              <select width="55" size="1" name="power" id="power">
+                <option  width="55" value="3">3</option>
+                <option  width="55" value="4">4</option>
               </select>
               </div>
              
               <div>
               <label for="color_type">Колірна схема</label><br>
               <select size="1" name="color_type" id="color_type">
-                <option value="0">Синій</option>
-                <option selected value="1">Червоний</option>
-                <option value="2">Жовтий</option>
-                <option value="3">Зелений</option>
+                <option value="0">Відтінки червоного</option>
+                <option selected value="1">Відтінки зеленого</option>
+                <option value="2">Відтінки синього</option>
+                <option value="3">Відтінки жовтого</option>
               </select>
               </div>
               <div>
                 <label for="constant_i">Реальна частина(а)</label><br>
-                <input name="constant_i" type="number" id="constant_i" step="0.01"><br>
+                <input value="1" name="constant_i" type="number" id="constant_i" step="0.01"><br>
                 <label for="constant_j">Уявна частина(b)</label><br>
-                <input name="constant_j" type="number" id="constant_j" step="0.01">
+                <input value="1" name="constant_j" type="number" id="constant_j" step="0.01">
              
                 </div>
+                <label for="zoom">Маштабування</label><br>
+                <select size="1" name="zoom" id="zoom">
+                  <option value="1">400%</option>
+                  <option selected value="2">200%</option>
+                  <option value="4">100%</option>
+                  <option value="8">50%</option>
+                </select>  
               <div class="modal-footer">
                   <input type="submit" value="ok">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Calcel</button>
@@ -132,6 +167,7 @@
     .input_grafic
     {
       margin-left: 500px;
+      margin-top: 90px;;
     }
       
     </style>
@@ -174,10 +210,10 @@
         var context =  myCanvas.getContext('2d');
         myCanvas.width = 500;
         myCanvas.height = 500;
-        colors1={"0":[45,75,47],"1":[93,5,4],"2":[93,5,4],"3":[255	,153	,102]}
-        colors2={"0":[0	,127,	255],"1":[0	,255,	255],"2":[59	,68	,75],"3":[93,138,168]}
-        colors3={"0":[251	,206,	177],"1":[	241	,156,	187],"2":[251	,206,	177],"3":[255,	126,	0]}
-        colors4={"0":[227,	38,	54],"1":[229,	43,	80],"2":[241,	156,	187],"3":[255,	191	,0]}
+        colors1={"0":[220, 20, 60],"1":[255, 0, 0],"2":[178, 34, 34],"3":[139, 0, 0]}
+        colors2={"0":[50, 205, 50],"1":[0, 255, 0],"2":[124, 252, 0],"3":[173, 255, 47]}
+        colors3={"0":[64, 224, 208],"1":[	0, 206, 209],"2":[70, 130, 180],"3":[0, 128, 128]}
+        colors4={"0":[255, 255, 0],"1":[255, 215, 0],"2":[255, 165, 0],"3":[255, 140, 0]}
         var color_models = [colors1, colors2, colors3, colors4]
         var obj = {{json_obj}}
         var color_type = {{color_type}}
@@ -191,7 +227,14 @@
         {
             arr = color_models[color_type][obj[0][i]]
             //console.log(color_type)
-            //arr[obj[0][i]] += obj[1][i]
+            if (  arr[obj[0][i]]+obj[1][i]<255)
+            {
+                arr[obj[0][i]] += obj[1][i]%10;
+            }
+            else
+            {
+              arr[obj[0][i]] = 255;
+            }
            // arr[0] += obj[1][i]
                
         }
@@ -206,7 +249,7 @@
         }
       
 
-          $("#myCanvas").click(function(e) {
+          $("#myCanvas").dblclick(function(e) {
             var form = $('<form action="http://127.0.0.1:5000/" method="POST">' + 
     '<input type="hidden" name="x_pos" value="' +  e.offsetX + '">' +
     '<input type="hidden" name="y_pos" value="' +  e.offsetY + '">'+

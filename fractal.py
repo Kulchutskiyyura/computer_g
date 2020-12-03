@@ -1,12 +1,10 @@
-"""
-Тут рахується фрактал
-"""
+
 
 import numpy as np
 import datetime
 import math
 
-#розвязуємо рівняння н-го степення
+
 def find_roots(n, const:complex):
     const = complex(const)
     const = complex(-const.real, const.imag)
@@ -30,7 +28,7 @@ def find_roots(n, const:complex):
     return roots
 
 
-#наша 1 формула
+
 def npe1(x, n, const=1):
     return (x ** n + const) / (n * x ** (n-1))
 
@@ -46,27 +44,25 @@ def id_root(number_list, root_list):
 
     return root_number_list
 
-#кількість точок по х і у
+
 x_number = 500
 y_number = 500
 
-#точність
-exp = 1.e-11
 
-#максимальна кількість ітерацій
+
+
 max_iteration_number = 50
 
-#створюємо масив з кординатами точок по х і у
 
 
 
-# головна функція
+
 def plot_newton_fractal(func_string, x_power, const,x_min, y_min, x_max, y_max):
     interval_left = x_min
     interval_right = x_max
     interval_down = y_min
     interval_up = y_max
-    
+    exp = 1.e-11*abs(x_max-x_min)
     x_coordinat_list = np.linspace(interval_left, interval_right, num=x_number)
     y_coordinats_list = np.linspace(interval_down, interval_up, num=y_number)
     #перетворюємо масив точок в комплексні числа
@@ -84,7 +80,7 @@ def plot_newton_fractal(func_string, x_power, const,x_min, y_min, x_max, y_max):
     
     prec_goal_list = np.ones(len(complex_numbers_list)) * exp
    
-    #головний цикл
+  
     while np.any(diff_list) > exp and number_of_iteration < max_iteration_number:
         diff = npe1(complex_numbers_list, x_power, const)
         diff_list = np.abs(diff / complex_numbers_list)
