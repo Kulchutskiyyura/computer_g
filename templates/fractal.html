@@ -1,266 +1,243 @@
 <html>
-    <head>
-        <title>My first program</title>
-       
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
- </head>
- <body>
-    <script>
-        function send_ajax_teh(name, type)
-        {
-            console.log("ajax work")
-        $.post(
-            url = "http://127.0.0.1:5000/",
-           
-         {
-            input_name: name,
-            input_type: type
-         }
-        );
-        }
 
-    </script>
-  
-    <style>
-  .main_panel{
-  display:flex;
-  flex-direction: row; 
-  justify-content: space-between;
-  background-color: white;
-      }
-      .rotate90 {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    transform: rotate(180deg);
-}
-.inside
-{
-  display:flex;
-  justify-content:flex-start;
-}
-    </style>
-    <div class="main_panel">
-      <div class="inside">
-        <a href="http://127.0.0.1:5000/">
-          <img src="static\home.png" alt="lorem" class="rotate90">   </a>
-        <a href="http://127.0.0.1:5000/"> <img src="static\file.png" alt="lorem" class="rotate90"> Файл</a>
-       <a href="http://127.0.0.1:5000/"> <img src="static\folder.png" alt="lorem" class="rotate90"> Бібліотека</a>
-      </div>
-       <h1> <img src="static\unicorn.png" alt="lorem" class="rotate90">Комнютерна графіка</h1>
-       <a href="http://127.0.0.1:5000/"><img src="static\student-hat.png" alt="lorem" class="rotate90">Уроки та приклади</a>
+<head>
+  <title>Вчи комп'ютерну графіку з нами!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <script>
+    function send_ajax_teh(name, type) {
+      console.log("ajax work")
+      $.post(
+        url = "http://127.0.0.1:5000/",
+
+        {
+          input_name: name,
+          input_type: type
+        }
+      );
+    }
+  </script>
+
+
+  <div class="top-toolbar">
+    <div class="inside">
+      <a href="http://127.0.0.1:5000/" class="toolbar-button-md"> <img height="24px" src="static\home.png"> </a>
+      <a href="http://127.0.0.1:5000/" class="toolbar-button-md"> <img height="24px" src="static\file.png"> Файл</a>
+      <a href="http://127.0.0.1:5000/" class="toolbar-button-md"> <img height="24px" src="static\folder.png"> Бібліотека</a>
     </div>
-    
-    <div class="contair">
-      
-    <style>
-      .second_panel{
-      display:flex;
-      flex-direction: row; 
-      justify-content:space-evenly;
-      background-color: lightgray;
-          }
-          .modal-content
-          {
-            
-            text-align: center;
-          }
-        </style>
-      <div class="second_panel">
-        <div>
-        <input value="введіть назву файлу" height="15px">
-        <button height="15px">Зберегти</button>
-      </div>
-        <button height="15px" ><img height="15px" src="static\undo.png" alt="lorem" class="rotate90"> </button>
-        <button height="15px"><img height="15px" src="static\redo.png" alt="lorem" class="rotate90"> </button>
-        <button height="20px" type="button" data-toggle="modal" data-target="#myModal" >
-          <img height="20px" src="static\firework.png" alt="lorem" class="rotate90"> Фрактал
-        </button>
-        
-        <button href="http://127.0.0.1:5000/">
-          <img src="static\gallery.png" height="20px" alt="lorem" class="rotate90"> Фото
-        </button>
-        <button href="http://127.0.0.1:5000/"> <img height="15px" src="static\palette.png" alt="lorem" class="rotate90"> Колірна модель</button>
-        <button href="http://127.0.0.1:5000/"><img height="15px" src="static\shape.png" alt="lorem" class="rotate90"> Фігура</button>
-       <div>
-        <input name="ch" id="ch" type="checkbox">
-        <label for="ch">Координатна сітка</label>
-      </div>
-        <input>
-      </div>
-      <!-- Trigger the modal with a button -->
-     
-    
-      <!-- Modal -->
-      <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-       
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-body">
-              <h1>Створити фрактал Нютона</h1>
-              <p>Для створення фракталу введіть константу у вигляді комплексного <br>числа у форматі  z = a + bi та виберіть кольорову схему. </p>
-            </div>
-            <form method="POST">
-              <div>
-              <label  for="power">Степінь</label><br>
-              <select width="55" size="1" name="power" id="power">
-                <option  width="55" value="3">3</option>
-                <option  width="55" value="4">4</option>
+    <h1> <img height="40px" src="static\unicorn.png">Комп'ютерна графіка</h1>
+    <div class="inside">
+      <a href="http://127.0.0.1:5000/" class="toolbar-button-md"><img height="24px" src="static\student-hat.png">Уроки та приклади</a>
+    </div>
+  </div>
+
+  <div class="bottom-toolbar">
+    <div>
+      <input value="Введіть назву файлу">
+      <button class="btn-primary btn-sm">Зберегти</button>
+    </div>
+    <div>
+      <button class="toolbar-button-sm">
+        <img height="15px" src="static\undo.png"> </button>
+      <button class="toolbar-button-sm">
+        <img height="15px" src="static\redo.png"> </button>
+    </div>
+    <div>
+      <button class="toolbar-button-sm" type="button" data-toggle="modal" data-target="#myModal">
+        <img height="20px" src="static\firework.png" alt="lorem"> Фрактал
+      </button>
+    </div>
+    <div>
+      <button class="toolbar-button-sm" href="http://127.0.0.1:5000/">
+        <img src="static\gallery.png" height="20px" alt="lorem"> Фото
+      </button>
+      <button class="toolbar-button-sm" href="http://127.0.0.1:5000/">
+        <img height="15px" src="static\palette.png" alt="lorem"> Колірна модель</button>
+    </div>
+    <button class="toolbar-button-sm" href="http://127.0.0.1:5000/">
+      <img height="15px" src="static\shape.png" alt="lorem"> Фігура</button>
+    <div>
+      <input name="ch" id="ch" type="checkbox"><input>
+      <label for="ch">Координатна сітка</label>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title">Створити фрактал Ньютона</h3><br>
+          <p>Для створення фракталу введіть константу у вигляді комплексного <br>числа у форматі z = a + bi та виберіть кольорову схему. </p>
+        </div>
+        <div class="modal-body">
+          <form method="POST">
+            <div class="form-group col-sm-12">
+              <label for="power">Степінь</label><br>
+              <select class="form-control" name="power" id="power">
+                <option value="3">3</option>
+                <option value="4">4</option>
               </select>
-              </div>
-             
-              <div>
+            </div>
+            <div class="form-group col-sm-12">
               <label for="color_type">Колірна схема</label><br>
-              <select size="1" name="color_type" id="color_type">
+              <select class="form-control" name="color_type" id="color_type">
                 <option value="0">Відтінки червоного</option>
                 <option selected value="1">Відтінки зеленого</option>
                 <option value="2">Відтінки синього</option>
                 <option value="3">Відтінки жовтого</option>
               </select>
-              </div>
-              <div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-6">
                 <label for="constant_i">Реальна частина(а)</label><br>
-                <input value="1" name="constant_i" type="number" id="constant_i" step="0.01"><br>
+                <input class="form-control" value="1" name="constant_i" type="number" id="constant_i" step="0.01">
+              </div>
+              <div class="form-group col-sm-6">
                 <label for="constant_j">Уявна частина(b)</label><br>
-                <input value="1" name="constant_j" type="number" id="constant_j" step="0.01">
-             
-                </div>
-                <label for="zoom">Маштабування</label><br>
-                <select size="1" name="zoom" id="zoom">
-                  <option value="1">400%</option>
-                  <option selected value="2">200%</option>
-                  <option value="4">100%</option>
-                  <option value="8">50%</option>
-                </select>  
-              <div class="modal-footer">
-                  <input type="submit" value="ok">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Calcel</button>
-                </div>
+                <input class="form-control" value="1" name="constant_j" type="number" id="constant_j" step="0.01">
+              </div>
+            </div>
+            <div class="form-group col-sm-12">
+              <label for="zoom">Маштабування</label><br>
+              <select class="form-control" size="1" name="zoom" id="zoom">
+                <option value="1">400%</option>
+                <option selected value="2">200%</option>
+                <option value="4">100%</option>
+                <option value="8">50%</option>
+              </select>
+            </div>
+            <a href="#" class="text-primary col-sm-12">Що таке фрактали? А комплексні числа?</a>
           </form>
-            
-          </div>
-          
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Продовжити</button>
         </div>
       </div>
-      
     </div>
-    <style>
-      .grafic
-      {
-        background-color: lightblue;
-       
-        display:flex;
-       
-    flex-direction: row; 
-    justify-content: space-between;
+  </div>
+  <!-- End of the modal -->
+
+  <div class="grafic">
+    <div class="input_grafic">
+      <canvas id="myCanvas"></canvas>
+      <legend for="myCanvas"></legend>
+    </div>
+  </div>
+  <script>
+    function rgb(r, g, b) {
+      return "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    function drawPoint(x, y, label, color, size, context) {
+      if (color == null) {
+        color = '#123';
       }
-    body
-    {
-      background-color: lightblue;
+
+      if (size == null) {
+        size = 1;
+      }
+
+      var radius = 0.5 * size;
+
+      // to increase smoothing for numbers with decimal part
+      var pointX = Math.round(x - radius);
+      var pointY = Math.round(y - radius);
+
+      context.beginPath();
+      context.fillStyle = color;
+      context.fillRect(pointX, pointY, size, size);
+      context.fill();
+
+
+    }
+  </script>
+  <script>
+    var myCanvas = document.getElementById("myCanvas");
+    var context = myCanvas.getContext('2d');
+    myCanvas.width = 500;
+    myCanvas.height = 500;
+    colors1 = {
+      "0": [220, 20, 60],
+      "1": [255, 0, 0],
+      "2": [178, 34, 34],
+      "3": [139, 0, 0]
+    }
+    colors2 = {
+      "0": [50, 205, 50],
+      "1": [0, 255, 0],
+      "2": [124, 252, 0],
+      "3": [173, 255, 47]
+    }
+    colors3 = {
+      "0": [64, 224, 208],
+      "1": [0, 206, 209],
+      "2": [70, 130, 180],
+      "3": [0, 128, 128]
+    }
+    colors4 = {
+      "0": [255, 255, 0],
+      "1": [255, 215, 0],
+      "2": [255, 165, 0],
+      "3": [255, 140, 0]
+    }
+    var color_models = [colors1, colors2, colors3, colors4]
+    var obj = {
+      {
+        json_obj
+      }
+    }
+    var color_type = {
+      {
+        color_type
+      }
+    }
+    console.log(obj)
+    x = 0
+    y = 0
+    for (var i = 0; i < obj[0].length; i++) {
+      arr = [0, 0, 0]
+      if (obj[0][i] != -1) {
+        arr = color_models[color_type][obj[0][i]]
+        //console.log(color_type)
+        if (arr[obj[0][i]] + obj[1][i] < 255) {
+          arr[obj[0][i]] += obj[1][i] % 10;
+        } else {
+          arr[obj[0][i]] = 255;
+        }
+        // arr[0] += obj[1][i]
+
+      }
+
+      drawPoint(x, y, null, rgb(...arr), 1, context);
+      x++;
+      if (x === 500) {
+        x = 0;
+        y++;
+      }
     }
 
-    .input_grafic
-    {
-      margin-left: 500px;
-      margin-top: 90px;;
-    }
-      
-    </style>
-    <div class="grafic">
-      <div class="input_grafic">
-        <canvas id="myCanvas"></canvas>
-        <legend for="myCanvas"></legend>
-      </div>
-    </div>
-    <script>
-        function rgb(r, g, b){
-            return "rgb("+r+","+g+","+b+")";
-        }
-        function drawPoint(x, y, label, color, size,context) {
-      	if (color == null) {
-        	color = '#123';
-        }
-      
-        if (size == null) {
-            size = 1;
-        }
-      
-      	var radius = 0.5 * size;
 
-      	// to increase smoothing for numbers with decimal part
-		    var pointX = Math.round(x - radius);
-        var pointY = Math.round(y - radius);
-  
-        context.beginPath();
-        context.fillStyle = color;
-      	context.fillRect(pointX, pointY, size, size);
-        context.fill();
-      
-      	
-    }
-    </script>
-    <script>
-   
-        var myCanvas = document.getElementById("myCanvas");
-        var context =  myCanvas.getContext('2d');
-        myCanvas.width = 500;
-        myCanvas.height = 500;
-        colors1={"0":[220, 20, 60],"1":[255, 0, 0],"2":[178, 34, 34],"3":[139, 0, 0]}
-        colors2={"0":[50, 205, 50],"1":[0, 255, 0],"2":[124, 252, 0],"3":[173, 255, 47]}
-        colors3={"0":[64, 224, 208],"1":[	0, 206, 209],"2":[70, 130, 180],"3":[0, 128, 128]}
-        colors4={"0":[255, 255, 0],"1":[255, 215, 0],"2":[255, 165, 0],"3":[255, 140, 0]}
-        var color_models = [colors1, colors2, colors3, colors4]
-        var obj = {{json_obj}}
-        var color_type = {{color_type}}
-        console.log(obj)
-        x=0
-        y=0
-        for(var i =0;i<obj[0].length;i++)
-        {
-        arr = [0,0,0]
-        if(obj[0][i]!=-1)
-        {
-            arr = color_models[color_type][obj[0][i]]
-            //console.log(color_type)
-            if (  arr[obj[0][i]]+obj[1][i]<255)
-            {
-                arr[obj[0][i]] += obj[1][i]%10;
-            }
-            else
-            {
-              arr[obj[0][i]] = 255;
-            }
-           // arr[0] += obj[1][i]
-               
-        }
-        
-        drawPoint(x,y,null,rgb(...arr),1,context);
-        x++;
-            if(x===500)
-            {
-                x=0;
-                y++;
-            }
-        }
-      
+    $("#myCanvas").dblclick(function(e) {
+      var form = $('<form action="http://127.0.0.1:5000/" method="POST">' +
+        '<input type="hidden" name="x_pos" value="' + e.offsetX + '">' +
+        '<input type="hidden" name="y_pos" value="' + e.offsetY + '">' +
+        '<input type="hidden" name="type" value="' + "ajax" + '">' +
+        '</form>')
+      $(document.body).append(form);
+      form.submit();
+    });
+  </script>
 
-          $("#myCanvas").dblclick(function(e) {
-            var form = $('<form action="http://127.0.0.1:5000/" method="POST">' + 
-    '<input type="hidden" name="x_pos" value="' +  e.offsetX + '">' +
-    '<input type="hidden" name="y_pos" value="' +  e.offsetY + '">'+
-    '<input type="hidden" name="type" value="' + "ajax" + '">'+
-    '</form>')
-    $(document.body).append(form);
-    form.submit();
-});
-        
-    </script>
 
-  
- </body>
+</body>
+
 </html>

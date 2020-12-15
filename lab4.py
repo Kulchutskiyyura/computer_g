@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 from flask import render_template
+from flask import url_for
 from flask import redirect
 from flask import redirect
 from flask import redirect
@@ -25,20 +26,20 @@ def main():
             print(request.form.get("x_pos"))
             print(request.form.get("y_pos"))
             color_type = global_dict["color"]
-            
+
             limits = return_new_limits(int(request.form.get("x_pos")), int(request.form.get("y_pos")),*limits)
             print(limits)
             return_dict = plot_newton_fractal("npe1",global_dict["power"], global_dict["const"], *limits)
-         
+
             #print(return_dict)
         else:
-          
-           
+
+
             power = int(request.form.get("power"))
             color_type = int(request.form.get("color_type"))
             zoom = int(request.form.get("zoom"))
             constant = complex(
-                float(request.form.get("constant_i")), 
+                float(request.form.get("constant_i")),
                 float(request.form.get("constant_j"))
             )
             limits = [-zoom , -zoom , zoom , zoom ]
