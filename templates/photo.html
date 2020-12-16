@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% block content %}
+
+      <canvas id="myCanvas"></canvas>
+      <legend for="myCanvas"></legend>
+  
+    <button id="imginfo">imginfo</button>
+    <button id="button">Open</button>
+    <input id="file-input" type="file" name="name" style="display: none;" />
+    <form method="POST" id="hidden_form">
+        <input type="hidden" id="hidden_input", name="data">
+    </form>
+    
+
+<script>
+    function hsl(h,s,l)
+    {
+        return "hsl("+h+","+s*100+"%,"+l*100+"%)";
+    }
+    function rgb(r, g, b){
+            return "rgb("+r+","+g+","+b+")";
+        }
+    function drawPoint(x, y, label, color, size,context) {
+      	if (color == null) {
+        	color = '#123';
+        }
+      
+        if (size == null) {
+            size = 1;
+        }
+      
+      	var radius = 0.5 * size;
+
+      	// to increase smoothing for numbers with decimal part
+		    var pointX = Math.round(x - radius);
+        var pointY = Math.round(y - radius);
+  
+        context.beginPath();
+        context.fillStyle = color;
+      	context.fillRect(pointX, pointY, size, size);
+        context.fill();
+      
+      	
+    }
+</script>
+<script>
+   
+    var myCanvas = document.getElementById("myCanvas");
+    var context =  myCanvas.getContext('2d');
+    myCanvas.width = 500;
+    myCanvas.height = 500;
+
+</script>
+<script>
+    var img_info = {{img_data}}
+    if (img_info != 0)
+    {
+        let x =0;
+        let y = 0;
+        console.log(img_info)
+        for(var i =0;i<img_info.length;i+=3)
+        {
+            drawPoint(x,y,null,hsl(img_info[i],img_info[i+1],img_info[i+2]),1,context);
+            x++;
+            if(x===500)
+            {
+                x=0;
+                y++;
+            }
+        }
+    }
+
+</script>
+<script>
+function drawImage(){
+    var ctx = $("canvas")[0].getContext("2d"),
+        img = new Image();
+    
+    img.onload = function(){
+        ctx.drawImage(img, 0, 0, 500, 500);
+        $("span").text("Loaded.");
+    };
+    img.src = "static\\test_img.jpg";
+    //img.crossOrigin = "Anonymous";
+    $("span").text("Loading...");
+}
+
+$("#button").click(drawImage);      
+</script>
+
+<script>
+    function getIMG()
+    {
+        var myImageData = context.getImageData(0, 0, 500, 500);
+        console.log(myImageData);
+        var new_submit = document.createElement("input")
+        var form = document.getElementById("hidden_form")
+        new_submit.type = "submit"
+        var hidden_input = document.getElementById("hidden_input")
+        form.insertBefore(new_submit, hidden_input);
+        var return_data = [];
+        var counter = 0;
+        for(var i = 0; i< myImageData.data.length; i++)
+        {
+            if(counter!==3)
+            {
+                return_data.push(myImageData.data[i]);
+                counter++;
+            }
+            else
+            {
+                counter =0;
+            }
+        }
+        
+        
+        hidden_input.value = JSON.stringify(return_data)
+        
+        form.submit();
+                          
+             
+           
+    }
+
+    $("#imginfo").click(getIMG);
+    /*
+    var ctx = context,
+        img = new Image();
+    
+    img.onload = function(){
+        ctx.drawImage(img,0,0,img.width,img.height,0,0,myCanvas.width,myCanvas.height);
+        $("span").text("Loaded.");
+    };
+    
+    $('#file-input').trigger('click');
+
+    var filePath=$('#file-input').val();
+
+    img.src = "static\\"+"file.png";
+    
+    const promise1 = new Promise((resolve, reject) => {
+        $('#file-input').trigger('click');
+
+        var filePath=$('#file-input').val();
+        resolve(filePath);
+        });
+    promise1.then((value) => {
+        img.src = "static\\"+value;
+        console.log("data is :  "+img.src);
+});
+    
+
+    function drawImage(){
+    const reader = new FileReader()
+    reader.onload= () =>{
+    var ctx = context,
+        img = new Image();
+    
+    img.onload = function(){
+        ctx.drawImage(image,0,0,img.width,img.height,0,0,myCanvas.width,myCanvas.height)
+        $("span").text("Loaded.");
+    };
+    img.src = reader.result ;
+    $("span").text("Loading...");
+}
+
+    
+}
+
+$("button").click(drawImage);
+    var image;
+      const reader = new FileReader()
+            reader.onloadend = () =>{
+            image = new Image()
+            image.onload = () =>{
+                ctx.drawImage(image,0,0,image.width,image.height,0,0,canvasobj.width,canvasobj.height)
+                if(!isSaturationChanged) 
+                    resCtx.drawImage(image,0,0,image.width,image.height,0,0,canvasobj.width,canvasobj.height)
+            }
+            image.src = reader.result 
+        }
+     */
+</script>
+{% endblock %}
