@@ -1,16 +1,4 @@
-<html>
-
-<head>
-  <title>Вчи комп'ютерну графіку з нами!</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-
-<body>
+{% extends "base.html" %}
   <script>
     function send_ajax_teh(name, type) {
       console.log("ajax work")
@@ -24,117 +12,6 @@
       );
     }
   </script>
-
-
-  <div class="top-toolbar">
-    <div class="inside">
-      <a href="http://127.0.0.1:5000/" class="toolbar-button-md"> <img height="24px" src="static\home.png"> </a>
-      <a href="http://127.0.0.1:5000/" class="toolbar-button-md"> <img height="24px" src="static\file.png"> Файл</a>
-      <a href="http://127.0.0.1:5000/" class="toolbar-button-md"> <img height="24px" src="static\folder.png"> Бібліотека</a>
-    </div>
-    <h1> <img height="40px" src="static\unicorn.png">Комп'ютерна графіка</h1>
-    <div class="inside">
-      <a href="http://127.0.0.1:5000/" class="toolbar-button-md"><img height="24px" src="static\student-hat.png">Уроки та приклади</a>
-    </div>
-  </div>
-
-  <div  class="bottom-toolbar">
-    <div class="form-horizontal">
-      <input class="form-control" placeholder="Введіть назву файлу">
-        <button class="btn-primary btn-sm">Зберегти</button>
-    </div>
-    <div>
-      <button class="toolbar-button-sm">
-        <img height="15px" src="static\undo.png"> </button>
-      <button class="toolbar-button-sm">
-        <img height="15px" src="static\redo.png"> </button>
-    </div>
-    <div>
-      <button class="toolbar-button-sm" type="button" data-toggle="modal" data-target="#myModal">
-        <img height="20px" src="static\firework.png" alt="lorem"> Фрактал
-      </button>
-    </div>
-    <div>
-      <button class="toolbar-button-sm" href="http://127.0.0.1:5000/">
-        <img src="static\gallery.png" height="20px" alt="lorem"> Фото
-      </button>
-      <button class="toolbar-button-sm" href="http://127.0.0.1:5000/">
-        <img height="15px" src="static\palette.png" alt="lorem"> Колірна модель</button>
-    </div>
-    <div>
-    <button class="toolbar-button-sm" href="http://127.0.0.1:5000/">
-      <img height="15px" src="static\shape.png" alt="lorem"> Фігура</button>
-    </div>
-    <div>
-      <input class="checkbox-inline" name="ch" id="ch" type="checkbox"><input>
-      <label for="ch">Координатна сітка</label>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h3 class="modal-title">Створити фрактал Ньютона</h3><br>
-          <p>Для створення фракталу введіть константу у вигляді комплексного <br>числа у форматі z = a + bi та виберіть кольорову схему. </p>
-        </div>
-        <div class="modal-body">
-          <form method="POST">
-            <div class="form-group col-sm-12">
-              <label for="power">Степінь</label><br>
-              <select class="form-control" name="power" id="power">
-                <option value="3">3</option>
-                <option value="4">4</option>
-              </select>
-            </div>
-            <div class="form-group col-sm-12">
-              <label for="color_type">Колірна схема</label><br>
-              <select class="form-control" name="color_type" id="color_type">
-                <option value="0">Відтінки червоного</option>
-                <option selected value="1">Відтінки зеленого</option>
-                <option value="2">Відтінки синього</option>
-                <option value="3">Відтінки жовтого</option>
-              </select>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-sm-6">
-                <label for="constant_i">Реальна частина(а)</label><br>
-                <input class="form-control" value="1" name="constant_i" type="number" id="constant_i" step="0.01">
-              </div>
-              <div class="form-group col-sm-6">
-                <label for="constant_j">Уявна частина(b)</label><br>
-                <input class="form-control" value="1" name="constant_j" type="number" id="constant_j" step="0.01">
-              </div>
-            </div>
-            <div class="form-group col-sm-12">
-              <label for="zoom">Маштабування</label><br>
-              <select class="form-control" size="1" name="zoom" id="zoom">
-                <option value="1">400%</option>
-                <option selected value="2">200%</option>
-                <option value="4">100%</option>
-                <option value="8">50%</option>
-              </select>
-            </div>
-            <a href="#" class="text-primary col-sm-12">Що таке фрактали? А комплексні числа?</a>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Продовжити</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End of the modal -->
-
-  <div class="grafic">
-    <div class="input_grafic">
-      <canvas id="myCanvas"></canvas>
-      <legend for="myCanvas"></legend>
-    </div>
-  </div>
-
   <script>
     function rgb(r, g, b) {
       return "rgb(" + r + "," + g + "," + b + ")";
@@ -240,7 +117,63 @@
     });
   </script>
 
+{% block content %}
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title">Створити фрактал Ньютона</h3><br>
+          <p>Для створення фракталу введіть константу у вигляді комплексного <br>числа у форматі z = a + bi та виберіть кольорову схему. </p>
+        </div>
+        <div class="modal-body">
+          <form method="POST">
+            <div class="form-group col-sm-12">
+              <label for="power">Степінь</label><br>
+              <select class="form-control" name="power" id="power">
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-12">
+              <label for="color_type">Колірна схема</label><br>
+              <select class="form-control" name="color_type" id="color_type">
+                <option value="0">Відтінки червоного</option>
+                <option selected value="1">Відтінки зеленого</option>
+                <option value="2">Відтінки синього</option>
+                <option value="3">Відтінки жовтого</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label for="constant_i">Реальна частина(а)</label><br>
+                <input class="form-control" value="1" name="constant_i" type="number" id="constant_i" step="0.01">
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="constant_j">Уявна частина(b)</label><br>
+                <input class="form-control" value="1" name="constant_j" type="number" id="constant_j" step="0.01">
+              </div>
+            </div>
+            <div class="form-group col-sm-12">
+              <label for="zoom">Маштабування</label><br>
+              <select class="form-control" size="1" name="zoom" id="zoom">
+                <option value="1">400%</option>
+                <option selected value="2">200%</option>
+                <option value="4">100%</option>
+                <option value="8">50%</option>
+              </select>
+            </div>
+            <a href="#" class="text-primary col-sm-12">Що таке фрактали? А комплексні числа?</a>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Продовжити" class="btn btn-primary">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End of the modal -->
 
-</body>
-
-</html>
+  <canvas id="myCanvas"></canvas>
+  {% endblock %}

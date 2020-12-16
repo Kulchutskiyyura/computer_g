@@ -12,7 +12,7 @@ body {
 .top-toolbar {
   display:flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   background-color: #FFFFFF;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   height: 84px;
@@ -21,8 +21,9 @@ body {
 .bottom-toolbar {
   display:flex;
   flex-direction: row;
-  align-items: vertical;
-  padding: 6px 12px;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 12px;
   background-color: #FFFFFF;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   height: 64px;
@@ -37,6 +38,7 @@ body {
   padding: 24px 12px;
   font-size: 16px;
   font-weight: bold;
+  background-color: none;
 }
 
 .toolbar-button-md img {
@@ -55,10 +57,10 @@ body {
     flex:none;
     padding: 6px 12px;
     text-decoration: none;
-    color: inherit;
     font-size: 14px;
     border: none;
-    color: #FFFFFF;
+    color: #000000;
+    background-color: #FFFFFF;
 }
 
 .toolbar-button-sm:active {
@@ -67,24 +69,32 @@ body {
   border-radius: 20px;
 }
 
+.toolbar-button-sm img {
+  height: 16px;
+  width: 16px;
+}
+
 .inside {
   display:flex;
   justify-content:center;
 }
 
-
-
-.main_panel{
-display:flex;
-flex-direction: row;
-justify-content: space-between;
-background-color: white;
-  }
-
-  .second_panel{
+.inside-toolbar {
   display:flex;
-  flex-direction: row;
-align-items: flex-start;
-position: absolute;
-  background-color: fff;
-      }
+  margin: 4px 14px;
+}
+
+
+canvas {
+  padding: 0;
+  margin: auto;
+  display: block;
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+}
