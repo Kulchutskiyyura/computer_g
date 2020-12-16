@@ -38,10 +38,10 @@
     </div>
   </div>
 
-  <div class="bottom-toolbar">
-    <div>
-      <input value="Введіть назву файлу">
-      <button class="btn-primary btn-sm">Зберегти</button>
+  <div  class="bottom-toolbar">
+    <div class="form-horizontal">
+      <input class="form-control" placeholder="Введіть назву файлу">
+        <button class="btn-primary btn-sm">Зберегти</button>
     </div>
     <div>
       <button class="toolbar-button-sm">
@@ -61,10 +61,12 @@
       <button class="toolbar-button-sm" href="http://127.0.0.1:5000/">
         <img height="15px" src="static\palette.png" alt="lorem"> Колірна модель</button>
     </div>
+    <div>
     <button class="toolbar-button-sm" href="http://127.0.0.1:5000/">
       <img height="15px" src="static\shape.png" alt="lorem"> Фігура</button>
+    </div>
     <div>
-      <input name="ch" id="ch" type="checkbox"><input>
+      <input class="checkbox-inline" name="ch" id="ch" type="checkbox"><input>
       <label for="ch">Координатна сітка</label>
     </div>
   </div>
@@ -132,6 +134,7 @@
       <legend for="myCanvas"></legend>
     </div>
   </div>
+
   <script>
     function rgb(r, g, b) {
       return "rgb(" + r + "," + g + "," + b + ")";
