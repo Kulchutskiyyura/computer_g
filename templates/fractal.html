@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-<canvas id="myCanvas"></canvas>
+{% block content %}
   <script>
     function send_ajax_teh(name, type) {
       console.log("ajax work")
@@ -119,7 +119,8 @@
     });
   </script>
 
-{% block content %}
+
+<canvas id="myCanvas"></canvas>
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog" role="document">

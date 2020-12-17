@@ -1,16 +1,84 @@
 {% extends "base.html" %}
 {% block content %}
 
+  <!-- Modal -->
+<div class="modal fade" id="colorModal" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title">Перетворити колірну модель</h3><br>
+          <p>Виберіть модель та додайте всі необхідні налаштування</p>
+        </div>
+        <div class="modal-body">
+        <form method="POST" id="hidden_form">
+          <div class="form-group">
+            <select class="form-control" id="form-controlid" name="colorModel" onchange="change_value()">
+              <option value="1">HSL</option>
+              <option value="2">RGB</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="hueRange" id="hueRangeid">Тон</label>
+              <input class="col-sm-10" type="range" name="hueRange" min="0" max = "100" value="50">
+          </div>
+          <div class="form-group">
+            <label for="saturationRange" id="saturationRangeid">Насиченість</label>
+              <input type="range" name="saturationRange" min="0" max = "100" value="50">
+          </div>
+          <div class="form-group">
+            <label for="lightnessRange" id="lightnessRangeid">Освітленість</label>
+    <input type="range" name="lightnessRange" min="0" max = "100" value="50">
+  </div>
+          </div>
+
+          <div class="modal-footer">
+            <input type="hidden" id="hidden_input", name="data">
+            <button id="imginfo" class="btn btn-primary">Продовжити</button>
+          </div>
+        </form>
+        </div>
+      </div>
+  
+    </div>
+  <!-- end  Modal -->
+
+
       <canvas id="myCanvas"></canvas>
       <legend for="myCanvas"></legend>
   
-    <button id="imginfo">imginfo</button>
-    <button id="button">Open</button>
+   
+    
     <input id="file-input" type="file" name="name" style="display: none;" />
     <form method="POST" id="hidden_form">
-        <input type="hidden" id="hidden_input", name="data">
+      
     </form>
-    
+<script>
+function change_value()
+{
+   
+    var valuee = document.getElementById("form-controlid");
+    if(valuee.value === 1)
+    {
+        var valuee1 = document.getElementById("hueRangeid");
+        var valuee2 = document.getElementById("saturationRangeid");
+        var valuee3 = document.getElementById("lightnessRangeid");
+        valuee1.value = "ТОН";
+        valuee2.value = "Насиченість";
+        valuee3.value = "Освітлення";
+    }
+    else
+    {
+       
+        var valuee1 = document.getElementById("hueRangeid");
+        var valuee2 = document.getElementById("saturationRangeid");
+        var valuee3 = document.getElementById("lightnessRangeid");
+        valuee1.value = "червоний";
+        valuee2.value = "зелений";
+        valuee3.value = "синій";
+    }
+}
+</script>
 
 <script>
     function hsl(h,s,l)
@@ -52,7 +120,8 @@
 
 </script>
 <script>
-    var img_info = {{img_data}}
+    var img_info = {{img_data}};
+    var type = {{typee}};
     if (img_info != 0)
     {
         let x =0;
@@ -60,7 +129,14 @@
         console.log(img_info)
         for(var i =0;i<img_info.length;i+=3)
         {
-            drawPoint(x,y,null,hsl(img_info[i],img_info[i+1],img_info[i+2]),1,context);
+            if(type===1)
+            {
+                drawPoint(x,y,null,hsl(img_info[i],img_info[i+1],img_info[i+2]),1,context);
+            }
+            else{
+
+                drawPoint(x,y,null,rgb(img_info[i],img_info[i+1],img_info[i+2]),1,context);
+            }
             x++;
             if(x===500)
             {
@@ -72,20 +148,43 @@
 
 </script>
 <script>
-function drawImage(){
-    var ctx = $("canvas")[0].getContext("2d"),
-        img = new Image();
-    
-    img.onload = function(){
-        ctx.drawImage(img, 0, 0, 500, 500);
-        $("span").text("Loaded.");
+function handleFiles(e) {
+    console.log("workfff")
+    var URL = window.webkitURL || window.URL;
+    var max_width = 500;
+    var max_height = 500;
+    var ctx = document.getElementById('myCanvas').getContext('2d');
+    var url = URL.createObjectURL(e.target.files[0]);
+    var img = new Image();
+    img.onload = function() {
+        var ratio = 1;
+        if (img.width > max_width) {
+            ratio = max_width / img.width;
+        }
+        if (ratio * img.height > max_height) {
+            ratio = max_height / img.height;
+        }
+        ctx.scale(ratio, ratio);
+        ctx.drawImage(img, 0, 0, 1000, 1000);
     };
-    img.src = "static\\test_img.jpg";
-    //img.crossOrigin = "Anonymous";
-    $("span").text("Loading...");
+    img.src = url;
 }
 
-$("#button").click(drawImage);      
+window.onload = function() {
+    var input = document.getElementById('file-input');
+    input.addEventListener('change', handleFiles, false);
+    console.log("work")
+};
+
+$("#button").click(function() {
+    var input = document.getElementById('file-input');
+    input.click()
+});  
+
+$("#button_mock").click(function() {
+    var input = document.getElementById('button');
+    input.click()
+});
 </script>
 
 <script>
@@ -93,11 +192,11 @@ $("#button").click(drawImage);
     {
         var myImageData = context.getImageData(0, 0, 500, 500);
         console.log(myImageData);
-        var new_submit = document.createElement("input")
+        //var new_submit = document.createElement("input")
         var form = document.getElementById("hidden_form")
-        new_submit.type = "submit"
+        //new_submit.type = "submit"
         var hidden_input = document.getElementById("hidden_input")
-        form.insertBefore(new_submit, hidden_input);
+       // form.insertBefore(new_submit, hidden_input);
         var return_data = [];
         var counter = 0;
         for(var i = 0; i< myImageData.data.length; i++)

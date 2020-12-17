@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style1.css') }}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -16,7 +16,15 @@
   <div class="top-toolbar">
     <div class="inside">
       <a href="http://127.0.0.1:5000/" class="toolbar-button-md"> <img height="24px" src="static\home.png"> </a>
-      <a href="http://127.0.0.1:5000/" class="toolbar-button-md"> <img height="24px" src="static\file.png"> Файл</a>
+      <style>
+        .button_clas
+        {
+          background-color: #FFFFFF;
+          border: 0px;
+        }
+      </style>
+      <button id="button" clas="button_clas" ><img height="24px" src="static\file.png"> Файл</button> 
+      <input id="file-input" type="file" name="name" style="display: none;" />
       <a href="http://127.0.0.1:5000/" class="toolbar-button-md"> <img height="24px" src="static\folder.png"> Бібліотека</a>
     </div>
     <h1> <img height="40px" src="static\unicorn.png">Комп'ютерна графіка</h1>
@@ -47,8 +55,9 @@
       <button class="toolbar-button-sm" href="http://127.0.0.1:5000/">
         <img src="static\gallery.png" height="20px" alt="lorem"> Фото
       </button>
-      <button class="toolbar-button-sm" href="http://127.0.0.1:5000/">
-        <img height="15px" src="static\palette.png" alt="lorem"> Колірна модель</button>
+      <button class="toolbar-button-sm" type="button"  data-toggle="modal" data-target="#colorModal">
+         <img src="static\palette.png"  height="20px" alt="lorem"> Колірна модель
+      </button>
     </div>
     <div class="inside-toolbar">
       <button class="toolbar-button-sm" href="http://127.0.0.1:5000/">

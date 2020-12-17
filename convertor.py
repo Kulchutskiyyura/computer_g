@@ -41,3 +41,41 @@ def hsl_to_rgb(h, s, l):
         b = hue_to_rgb(p, q, h - 1/3)
 
     return r, g, b
+
+def h_convertor(value, index):
+    index = (index-0.5)*2
+    coef = 180 * index
+    value = value + coef
+    if value>360:
+        value=360-value
+    elif value<0:
+        value = 0
+    return value
+
+def s_convertor(value, index):
+    index = index*2
+    value = value*index
+    if value>1:
+        value=1
+    elif value<0:
+        value = 0
+    return value
+
+def l_convertor(value, index):
+    index = index*2
+    value = value*index
+    if value>1:
+        value=1
+    elif value<0:
+        value = 0
+    return value
+
+def rgb_convertor(value, index):
+    index = (index-0.5)*2
+    coef = 255 * index
+    value = value + coef
+    if value>255:
+        value=255
+    elif value<0:
+        value = 0
+    return value
