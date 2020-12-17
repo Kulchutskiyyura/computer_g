@@ -13,7 +13,7 @@
         <div class="modal-body">
         <form method="POST" id="hidden_form">
           <div class="form-group">
-            <select class="form-control" id="form-controlid" name="colorModel" onchange="change_value()">
+            <select class="form-control" id="color-option" name="colorModel" onclick="change_value(event)">
               <option value="1">HSL</option>
               <option value="2">RGB</option>
             </select>
@@ -54,28 +54,23 @@
       
     </form>
 <script>
-function change_value()
+function change_value(event)
 {
-   
-    var valuee = document.getElementById("form-controlid");
-    if(valuee.value === 1)
+
+  var e = document.getElementById("color-option");
+  var strUser = e.options[e.selectedIndex].text;
+
+    if(strUser === "HSL")
     {
-        var valuee1 = document.getElementById("hueRangeid");
-        var valuee2 = document.getElementById("saturationRangeid");
-        var valuee3 = document.getElementById("lightnessRangeid");
-        valuee1.value = "ТОН";
-        valuee2.value = "Насиченість";
-        valuee3.value = "Освітлення";
+      document.getElementById("hueRangeid").innerHTML = "Тон";
+      document.getElementById("saturationRangeid").innerHTML = "Насиченість";
+      document.getElementById("lightnessRangeid").innerHTML = "Освітленість";
     }
     else
     {
-       
-        var valuee1 = document.getElementById("hueRangeid");
-        var valuee2 = document.getElementById("saturationRangeid");
-        var valuee3 = document.getElementById("lightnessRangeid");
-        valuee1.value = "червоний";
-        valuee2.value = "зелений";
-        valuee3.value = "синій";
+        document.getElementById("hueRangeid").innerHTML = "Червоний";
+        document.getElementById("saturationRangeid").innerHTML = "Зелений";
+        document.getElementById("lightnessRangeid").innerHTML = "Синій";
     }
 }
 </script>
