@@ -101,7 +101,7 @@ def color_transformation():
             #hsl_list.clear()
             #hsl_list.extend(img_data)
         print(count)
-        return render_template("photo.html", img_data=img_data,typee=1, rgb_data= rgb_data, width=500,height=500,start_x=start_x, start_y= start_y)
+        return render_template("photo.html", img_data=img_data,typee=1, rgb_data= rgb_data, width=width,height=height,start_x=start_x, start_y= start_y)
         
             
     return render_template("photo.html", img_data=0,typee=0,rgb_data =0,width=500,height=500,start_x=0, start_y= 0)
