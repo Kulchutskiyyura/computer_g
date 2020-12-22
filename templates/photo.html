@@ -13,19 +13,11 @@
         <div class="modal-body">
         <form method="POST" id="hidden_form">
           <div class="form-group">
-            <select class="form-control" id="color-option" name="colorModel" onclick="change_value(event)">
+            <select class="form-control" id="color-option" name="colorModel">
               <option value="green">green</option>
               <option value="yellow">yellow</option>
               <option value="blue">blue</option>
             </select>
-          </div>
-          <div class="form-group">
-            <label for="hueRange" id="hueRangeid">Тон</label>
-              <input class="col-sm-10" type="range" name="hueRange" min="0" max = "100" value="50">
-          </div>
-          <div class="form-group">
-            <label for="saturationRange" id="saturationRangeid">Насиченість</label>
-              <input type="range" name="saturationRange" min="0" max = "100" value="50">
           </div>
           <div class="form-group">
             <label for="lightnessRange" id="lightnessRangeid">Освітленість</label>
@@ -35,7 +27,9 @@
 
           <div class="modal-footer">
             <input type="hidden" id="hidden_input", name="data">
-            
+
+            <input type="hidden" id="hidden_input10", name="data_hsl">
+
             <input type="hidden" id="hidden_input2", name="width" value="500">
             <input type="hidden" id="hidden_input3", name="height" value="500">
             <input type="hidden" id="hidden_input4", name="start_x" value="0">
@@ -52,6 +46,47 @@
   
     </div>
   <!-- end  Modal -->
+  <div class="modal fade" id="changeModel" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title">Перетворити колірну модель</h3><br>
+          <p>Виберіть модель та додайте всі необхідні налаштування</p>
+        </div>
+        <div class="modal-body">
+        <form method="POST" id="hidden_form_change">
+          <div class="form-group">
+            <select class="form-control" id="color-option" name="change_type">
+              <option value="0">З RGB в HSL</option>
+              <option value="1">З HSL в RGB</option>
+              
+            </select>
+          </div>
+          
+          </div>
+
+          <div class="modal-footer">
+            <input type="hidden" id="hidden_input11", name="data">
+
+            <input type="hidden" id="hidden_input20", name="data_hsl">
+
+            <input type="hidden" id="hidden_input12", name="width" value="500">
+            <input type="hidden" id="hidden_input13", name="height" value="500">
+            <input type="hidden" id="hidden_input14", name="start_x" value="0">
+            <input type="hidden" id="hidden_input15", name="start_y" value="0">
+            <input type="hidden" id="hidden_input16", name="width_hsl" value="500">
+            <input type="hidden" id="hidden_input17", name="height_hsl" value="500">
+            <input type="hidden" id="hidden_input18", name="start_x_hsl" value="0">
+            <input type="hidden" id="hidden_input19", name="start_y_hsl" value="0">
+            <button id="imginfo_change" class="btn btn-primary">Перетворити</button>
+          </div>
+        </form>
+        </div>
+      </div>
+  
+    </div>
+    <!--end second modal-->
 <style>
 
     .canvas_div
@@ -211,6 +246,8 @@ function change_value(event)
     
     var gloab_start_x_hsl = Number({{start_x_hsl}});
     var global_start_y_hsl = Number({{start_y_hsl}});
+
+    var use_htl = true;
     if (img_info != 0)
     {
         let x = gloab_start_x;
@@ -250,18 +287,31 @@ function change_value(event)
            //console.log(x);
            //console.log(y);
         }
-        x= 0;
-        y = 0;
-
-        for(var i =0;i<rgb_dataa.length;i+=3)
+        x= gloab_start_x_hsl;
+        y = global_start_y_hsl;
+        local_img = []
+        count = 0;
+        for(let i =y; i<  global_start_y_hsl+global_hight_hsl; i++)
+        {
+            for(let j=x;j<gloab_start_x_hsl+global_width_hsl; j++)
+            {
+                //console.log(j*500*3+i*3);
+                local_img.push(rgb_dataa[i*500*3+j*3]);
+                local_img.push(rgb_dataa[i*500*3+j*3+1]);
+                local_img.push(rgb_dataa[i*500*3+j*3+2]);
+                count++;
+            }
+        }
+        console.log("rgb c : ", count)
+        for(var i =0;i<local_img.length;i+=3)
         {
            
-            drawPoint(x,y,null,rgb(rgb_dataa[i],rgb_dataa[i+1],rgb_dataa[i+2]),1,context);
+            drawPoint(x,y,null,rgb(local_img[i],local_img[i+1],local_img[i+2]),1,context);
                     
             x++;
-            if(x===500)
+            if(x===global_width_hsl+gloab_start_x_hsl)
             {
-                x=0;
+                x=gloab_start_x_hsl;
                 y++;
             }
         }
@@ -289,6 +339,10 @@ function handleFiles(e) {
         ctx.drawImage(img, 0, 0, 1000, 1000);
     };
     img.src = url;
+    global_hight = 500;
+    global_width = 500;
+    gloab_start_x = 0;
+    global_start_y = 0;
     context_hsl.clearRect(0, 0, 500, 500);
 }
 
@@ -325,8 +379,8 @@ $("#button_mock").click(function() {
     });
 
 
-    $("#myCanvas_hsl").dblclick(function(e) {
-     if( img_info!=0)
+    $("#CanvasMockHsl").dblclick(function(e) {
+     if( img_info!==0)
      {
             input_h = document.getElementById("h");
             input_s = document.getElementById("s")
@@ -425,6 +479,7 @@ function handleMouseMove(e) {
     gloab_start_x = startX;
     global_start_y = startY;
 
+    use_htl = false;
     // draw a new rect from the start position 
     // to the current mouse position
     ctx.strokeRect(startX, startY, width, height);
@@ -567,6 +622,7 @@ $("#CanvasMockHsl").mouseout(function (e) {
         //new_submit.type = "submit"
         var hidden_input = document.getElementById("hidden_input")
        
+        var hidden_input_hsl = document.getElementById("hidden_input10")
 
         var hidden_input_width = document.getElementById("hidden_input2")
         var hidden_input_height = document.getElementById("hidden_input3")
@@ -578,14 +634,19 @@ $("#CanvasMockHsl").mouseout(function (e) {
         var hidden_input_startY_hsl = document.getElementById("hidden_input9")
        // form.insertBefore(new_submit, hidden_input);
         var return_data = [];
-       
+        var return_data_hsl = [];
         var counter = 0;
         for(var i = 0; i< myImageData.data.length; i++)
         {
             if(counter!==3)
             {
                 return_data.push(myImageData.data[i]);
+                if (img_info !== 0 && use_htl)
+                {
+                return_data_hsl.push(myImageData_hsl.data[i])
+                }
                 counter++;
+
                 
             }
             else
@@ -596,6 +657,8 @@ $("#CanvasMockHsl").mouseout(function (e) {
         
         
         hidden_input.value = JSON.stringify(return_data)
+
+        hidden_input_hsl.value = JSON.stringify(return_data_hsl)
       
         hidden_input_width.value = JSON.stringify(global_width)
         hidden_input_height.value =JSON.stringify(global_hight)
@@ -614,6 +677,72 @@ $("#CanvasMockHsl").mouseout(function (e) {
     }
 
     $("#imginfo").click(getIMG);
+
+    function getIMGHsl()
+    {
+        var myImageData = context.getImageData(0, 0, 500, 500);
+        var myImageData_hsl = context_hsl.getImageData(0, 0, 500, 500);
+        console.log(myImageData);
+        //var new_submit = document.createElement("input")
+        var form = document.getElementById("hidden_form_change")
+        //new_submit.type = "submit"
+        var hidden_input = document.getElementById("hidden_input11")
+       
+        var hidden_input_hsl = document.getElementById("hidden_input20")
+
+        var hidden_input_width = document.getElementById("hidden_input12")
+        var hidden_input_height = document.getElementById("hidden_input13")
+        var hidden_input_startX = document.getElementById("hidden_input14")
+        var hidden_input_startY = document.getElementById("hidden_input15")
+        var hidden_input_width_hsl = document.getElementById("hidden_input16")
+        var hidden_input_height_hsl = document.getElementById("hidden_input17")
+        var hidden_input_startX_hsl = document.getElementById("hidden_input18")
+        var hidden_input_startY_hsl = document.getElementById("hidden_input19")
+       // form.insertBefore(new_submit, hidden_input);
+        var return_data = [];
+        var return_data_hsl = [];
+        var counter = 0;
+        for(var i = 0; i< myImageData.data.length; i++)
+        {
+            if(counter!==3)
+            {
+                return_data.push(myImageData.data[i]);
+                if (img_info !== 0 && use_htl)
+                {
+                return_data_hsl.push(myImageData_hsl.data[i])
+                }
+                counter++;
+
+                
+            }
+            else
+            {
+                counter =0;
+            }
+        }
+        
+        
+        hidden_input.value = JSON.stringify(return_data)
+
+        hidden_input_hsl.value = JSON.stringify(return_data_hsl)
+      
+        hidden_input_width.value = JSON.stringify(global_width)
+        hidden_input_height.value =JSON.stringify(global_hight)
+        hidden_input_startX.value = JSON.stringify(gloab_start_x)
+        hidden_input_startY.value = JSON.stringify(global_start_y)
+
+        hidden_input_width_hsl.value = JSON.stringify(global_width_hsl)
+        hidden_input_height_hsl.value =JSON.stringify(global_hight_hsl)
+        hidden_input_startX_hsl.value = JSON.stringify(gloab_start_x_hsl)
+        hidden_input_startY_hsl.value = JSON.stringify(global_start_y_hsl)
+        
+        form.submit();
+                          
+             
+           
+    }
+
+    $("#imginfo_change").click(getIMGHsl);
     /*
     var ctx = context,
         img = new Image();
