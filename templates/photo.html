@@ -43,7 +43,7 @@
         </form>
         </div>
       </div>
-  
+
     </div>
   <!-- end  Modal -->
   <div class="modal fade" id="changeModel" role="dialog">
@@ -60,10 +60,10 @@
             <select class="form-control" id="color-option" name="change_type">
               <option value="0">З RGB в HSL</option>
               <option value="1">З HSL в RGB</option>
-              
+
             </select>
           </div>
-          
+
           </div>
 
           <div class="modal-footer">
@@ -84,7 +84,7 @@
         </form>
         </div>
       </div>
-  
+
     </div>
     <!--end second modal-->
 <style>
@@ -106,8 +106,8 @@
     #myCanvas_hsl
     {
         margin-left:880px ;
-        
-      
+
+
     }
     #CanvasMockHsl
     {
@@ -115,42 +115,27 @@
         margin-left:880px ;
     }
 </style>
-<div>
-    <label for ="r">Червоний</label>
-    <input id="r" readonly value="0">
-    <label for ="g">Зелений</label>
-    <input id="g" readonly  value="0">
-    <label for ="b">Синій</label>
-    <input id="b" readonly  value="0">
-</div>
-<div>
-    <label for ="h">Тон</label>
-    <input id="h" readonly value="0">
-    <label for ="s">Насиченість</label>
-    <input id="s" readonly  value="0">
-    <label for ="l">Освітленість</label>
-    <input id="l" readonly  value="0">
-</div>
+
 <div class="canvas_div">
 <div class="rgb_canvas">
 
       <canvas id="myCanvas"></canvas>
-      <canvas id="CanvasMock"></canvas>
+      <canvas class="result_canvas" id="CanvasMock"></canvas>
       <legend for="myCanvas"></legend>
-     
-    
+      <span class="tooltiptext" id="tooltip">Model</span>
+
 </div>
 <div class="hsl_canvas">
       <canvas id="myCanvas_hsl"></canvas>
-      <canvas id="CanvasMockHsl"></canvas>
+      <canvas class="result_canvas" id="CanvasMockHsl"></canvas>
       <legend for="myCanvas_hsl"></legend>
-      
+
     </div>
-</div>  
-    
+</div>
+
     <input id="file-input" type="file" name="name" style="display: none;" />
     <form method="POST" id="hidden_form">
-      
+
     </form>
 <script>
 function change_value(event)
@@ -186,27 +171,27 @@ function change_value(event)
       	if (color == null) {
         	color = '#123';
         }
-      
+
         if (size == null) {
             size = 1;
         }
-      
+
       	var radius = 0.5 * size;
 
       	// to increase smoothing for numbers with decimal part
 		    var pointX = Math.round(x - radius);
         var pointY = Math.round(y - radius);
-  
+
         context.beginPath();
         context.fillStyle = color;
       	context.fillRect(pointX, pointY, size, size);
         context.fill();
-      
-      	
+
+
     }
 </script>
 <script>
-   
+
     var myCanvas = document.getElementById("myCanvas");
     var context =  myCanvas.getContext('2d');
     myCanvas.width = 500;
@@ -227,8 +212,8 @@ function change_value(event)
     myCanvas_mock_hsl.width = 500;
     myCanvas_mock_hsl.height = 500;
 
-    
- 
+
+
 </script>
 <script>
     var img_info = {{img_data}};
@@ -243,7 +228,7 @@ function change_value(event)
 
     var global_hight_hsl = Number({{height_hsl}});
     var global_width_hsl = Number({{width_hsl}});
-    
+
     var gloab_start_x_hsl = Number({{start_x_hsl}});
     var global_start_y_hsl = Number({{start_y_hsl}});
 
@@ -255,7 +240,7 @@ function change_value(event)
         let local_img = []
         context_hsl.clearRect(0, 0, 500, 500)
         let count = 0
-       
+
         for(let i =y; i<  global_start_y+global_hight; i++)
         {
             for(let j=x;j<gloab_start_x+global_width; j++)
@@ -305,9 +290,9 @@ function change_value(event)
         console.log("rgb c : ", count)
         for(var i =0;i<local_img.length;i+=3)
         {
-           
+
             drawPoint(x,y,null,rgb(local_img[i],local_img[i+1],local_img[i+2]),1,context);
-                    
+
             x++;
             if(x===global_width_hsl+gloab_start_x_hsl)
             {
@@ -355,7 +340,7 @@ window.onload = function() {
 $("#button").click(function() {
     var input = document.getElementById('file-input');
     input.click()
-});  
+});
 
 $("#button_mock").click(function() {
     var input = document.getElementById('button');
@@ -363,32 +348,29 @@ $("#button_mock").click(function() {
 });
 </script>
 <script>
- 
-     $("#CanvasMock").dblclick(function(e) {
+  var tooltipSpan = document.getElementById('tooltip');
+
+  window.onmousemove = function (e) {
+      var x = e.clientX,
+          y = e.clientY;
+      tooltipSpan.style.top = (y + 20) + 'px';
+      tooltipSpan.style.left = (x + 20) + 'px';
+  };
+
+      document.getElementById("CanvasMock").addEventListener('mousemove', (e)=> {
         if(rgb_dataa!=0)
         {
-            input_r = document.getElementById("r");
-            input_g = document.getElementById("g")
-            input_b = document.getElementById("b")
             index = 3*( e.offsetY*500 +  e.offsetX );
-            input_r.value = rgb_dataa[index]
-            input_g.value = rgb_dataa[index+1]
-            input_b.value = rgb_dataa[index+2]
+            document.getElementById("tooltip").innerHTML= "RGB (" + rgb_dataa[index] + "; " + rgb_dataa[index+1] + "; " + rgb_dataa[index+2] +")";
         }
-   
+
     });
 
-
-    $("#CanvasMockHsl").dblclick(function(e) {
+    document.getElementById("CanvasMockHsl").addEventListener('mousemove', (e)=> {
      if( img_info!==0)
      {
-            input_h = document.getElementById("h");
-            input_s = document.getElementById("s")
-            input_l = document.getElementById("l")
             index = 3*( e.offsetY*500 +  e.offsetX );
-            input_h.value = img_info[index].toFixed(2)
-            input_s.value = img_info[index+1].toFixed(2)
-            input_l.value = img_info[index+2].toFixed(2)
+            document.getElementById("tooltip").innerHTML = "HSL (" +  img_info[index].toFixed(2) + "; " +  img_info[index+1].toFixed(2) + "; " +  img_info[index+2].toFixed(2) +")";
      }
     });
 </script>
@@ -480,7 +462,7 @@ function handleMouseMove(e) {
     global_start_y = startY;
 
     use_htl = false;
-    // draw a new rect from the start position 
+    // draw a new rect from the start position
     // to the current mouse position
     ctx.strokeRect(startX, startY, width, height);
 
@@ -503,7 +485,7 @@ $("#CanvasMock").mouseout(function (e) {
 
 
 <script>
-    
+
 var canvas_hsl = document.getElementById("CanvasMockHsl");
 var ctx_hsl = canvas_hsl.getContext("2d");
 
@@ -590,7 +572,7 @@ function handleMouseMove_hsl(e) {
     gloab_start_x_hsl = startX_hsl;
     global_start_y_hsl = startY_hsl;
 
-    // draw a new rect from the start position 
+    // draw a new rect from the start position
     // to the current mouse position
     ctx_hsl.strokeRect(startX_hsl, startY_hsl, width_hsl, height_hsl);
 
@@ -621,7 +603,7 @@ $("#CanvasMockHsl").mouseout(function (e) {
         var form = document.getElementById("hidden_form")
         //new_submit.type = "submit"
         var hidden_input = document.getElementById("hidden_input")
-       
+
         var hidden_input_hsl = document.getElementById("hidden_input10")
 
         var hidden_input_width = document.getElementById("hidden_input2")
@@ -647,19 +629,19 @@ $("#CanvasMockHsl").mouseout(function (e) {
                 }
                 counter++;
 
-                
+
             }
             else
             {
                 counter =0;
             }
         }
-        
-        
+
+
         hidden_input.value = JSON.stringify(return_data)
 
         hidden_input_hsl.value = JSON.stringify(return_data_hsl)
-      
+
         hidden_input_width.value = JSON.stringify(global_width)
         hidden_input_height.value =JSON.stringify(global_hight)
         hidden_input_startX.value = JSON.stringify(gloab_start_x)
@@ -669,11 +651,11 @@ $("#CanvasMockHsl").mouseout(function (e) {
         hidden_input_height_hsl.value =JSON.stringify(global_hight_hsl)
         hidden_input_startX_hsl.value = JSON.stringify(gloab_start_x_hsl)
         hidden_input_startY_hsl.value = JSON.stringify(global_start_y_hsl)
-        
+
         form.submit();
-                          
-             
-           
+
+
+
     }
 
     $("#imginfo").click(getIMG);
@@ -687,7 +669,7 @@ $("#CanvasMockHsl").mouseout(function (e) {
         var form = document.getElementById("hidden_form_change")
         //new_submit.type = "submit"
         var hidden_input = document.getElementById("hidden_input11")
-       
+
         var hidden_input_hsl = document.getElementById("hidden_input20")
 
         var hidden_input_width = document.getElementById("hidden_input12")
@@ -713,19 +695,19 @@ $("#CanvasMockHsl").mouseout(function (e) {
                 }
                 counter++;
 
-                
+
             }
             else
             {
                 counter =0;
             }
         }
-        
-        
+
+
         hidden_input.value = JSON.stringify(return_data)
 
         hidden_input_hsl.value = JSON.stringify(return_data_hsl)
-      
+
         hidden_input_width.value = JSON.stringify(global_width)
         hidden_input_height.value =JSON.stringify(global_hight)
         hidden_input_startX.value = JSON.stringify(gloab_start_x)
@@ -735,29 +717,29 @@ $("#CanvasMockHsl").mouseout(function (e) {
         hidden_input_height_hsl.value =JSON.stringify(global_hight_hsl)
         hidden_input_startX_hsl.value = JSON.stringify(gloab_start_x_hsl)
         hidden_input_startY_hsl.value = JSON.stringify(global_start_y_hsl)
-        
+
         form.submit();
-                          
-             
-           
+
+
+
     }
 
     $("#imginfo_change").click(getIMGHsl);
     /*
     var ctx = context,
         img = new Image();
-    
+
     img.onload = function(){
         ctx.drawImage(img,0,0,img.width,img.height,0,0,myCanvas.width,myCanvas.height);
         $("span").text("Loaded.");
     };
-    
+
     $('#file-input').trigger('click');
 
     var filePath=$('#file-input').val();
 
     img.src = "static\\"+"file.png";
-    
+
     const promise1 = new Promise((resolve, reject) => {
         $('#file-input').trigger('click');
 
@@ -768,14 +750,14 @@ $("#CanvasMockHsl").mouseout(function (e) {
         img.src = "static\\"+value;
         console.log("data is :  "+img.src);
 });
-    
+
 
     function drawImage(){
     const reader = new FileReader()
     reader.onload= () =>{
     var ctx = context,
         img = new Image();
-    
+
     img.onload = function(){
         ctx.drawImage(image,0,0,img.width,img.height,0,0,myCanvas.width,myCanvas.height)
         $("span").text("Loaded.");
@@ -784,7 +766,7 @@ $("#CanvasMockHsl").mouseout(function (e) {
     $("span").text("Loading...");
 }
 
-    
+
 }
 
 $("button").click(drawImage);
@@ -794,10 +776,10 @@ $("button").click(drawImage);
             image = new Image()
             image.onload = () =>{
                 ctx.drawImage(image,0,0,image.width,image.height,0,0,canvasobj.width,canvasobj.height)
-                if(!isSaturationChanged) 
+                if(!isSaturationChanged)
                     resCtx.drawImage(image,0,0,image.width,image.height,0,0,canvasobj.width,canvasobj.height)
             }
-            image.src = reader.result 
+            image.src = reader.result
         }
      */
 </script>

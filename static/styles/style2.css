@@ -102,3 +102,19 @@ canvas {
   margin-top:200px ;
 
 }
+
+.result_canvas .tooltiptext {
+  display: none;
+  width: 120px;
+  background-color: black;
+  color: #FFFFFF;
+  text-align:center;
+  padding: 5px 0;
+  border-radius:6px;
+  position: absolute;
+  z-index: 1;
+}
+
+.result-canvas:hover .tooltiptext {
+  display: block;
+}
