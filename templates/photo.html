@@ -35,10 +35,15 @@
 
           <div class="modal-footer">
             <input type="hidden" id="hidden_input", name="data">
+            
             <input type="hidden" id="hidden_input2", name="width" value="500">
             <input type="hidden" id="hidden_input3", name="height" value="500">
             <input type="hidden" id="hidden_input4", name="start_x" value="0">
             <input type="hidden" id="hidden_input5", name="start_y" value="0">
+            <input type="hidden" id="hidden_input6", name="width_hsl" value="500">
+            <input type="hidden" id="hidden_input7", name="height_hsl" value="500">
+            <input type="hidden" id="hidden_input8", name="start_x_hsl" value="0">
+            <input type="hidden" id="hidden_input9", name="start_y_hsl" value="0">
             <button id="imginfo" class="btn btn-primary">Продовжити</button>
           </div>
         </form>
@@ -182,6 +187,11 @@ function change_value(event)
     myCanvas_mock.width = 500;
     myCanvas_mock.height = 500;
 
+    var myCanvas_mock_hsl = document.getElementById("CanvasMockHsl");
+    var context_mock_hsl =  myCanvas_mock_hsl.getContext('2d');
+    myCanvas_mock_hsl.width = 500;
+    myCanvas_mock_hsl.height = 500;
+
     
  
 </script>
@@ -195,6 +205,12 @@ function change_value(event)
     console.log(global_width)
     var gloab_start_x = Number({{start_x}});
     var global_start_y = Number({{start_y}});
+
+    var global_hight_hsl = Number({{height_hsl}});
+    var global_width_hsl = Number({{width_hsl}});
+    
+    var gloab_start_x_hsl = Number({{start_x_hsl}});
+    var global_start_y_hsl = Number({{start_y_hsl}});
     if (img_info != 0)
     {
         let x = gloab_start_x;
@@ -430,21 +446,139 @@ $("#CanvasMock").mouseout(function (e) {
 });
 </script>
 
+
+<script>
+    
+var canvas_hsl = document.getElementById("CanvasMockHsl");
+var ctx_hsl = canvas_hsl.getContext("2d");
+
+
+
+// style the context
+ctx_hsl.strokeStyle = "blue";
+ctx_hsl.lineWidth = 3;
+
+// calculate where the canvas is on the window
+// (used to help calculate mouseX/mouseY)
+var $canvas_hsl = $("#CanvasMockHsl");
+var canvasOffset_hsl = $canvas_hsl.offset();
+var offsetX_hsl = canvasOffset_hsl.left;
+var offsetY_hsl = canvasOffset_hsl.top;
+var scrollX_hsl = $canvas_hsl.scrollLeft();
+var scrollY_hsl = $canvas_hsl.scrollTop();
+
+// this flage is true when the user is dragging the mouse
+var isDown_hsl = false;
+
+// these vars will hold the starting mouse position
+var startX_hsl;
+var startY_hsl;
+
+
+function handleMouseDown_hsl(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // save the starting x/y of the rectangle
+    startX_hsl = parseInt(e.clientX - offsetX_hsl);
+    startY_hsl = parseInt(e.clientY - offsetY_hsl);
+
+    // set a flag indicating the drag has begun
+    isDown_hsl = true;
+}
+
+function handleMouseUp_hsl(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // the drag is over, clear the dragging flag
+    isDown_hsl = false;
+}
+
+function handleMouseOut_hsl(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // the drag is over, clear the dragging flag
+    isDown_hsl = false;
+}
+
+function handleMouseMove_hsl(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // if we're not dragging, just return
+    if (!isDown_hsl) {
+        return;
+    }
+
+    // get the current mouse position
+    mouseX_hsl = parseInt(e.clientX - offsetX_hsl);
+    mouseY_hsl = parseInt(e.clientY - offsetY_hsl);
+
+    // Put your mousemove stuff here
+
+    // clear the canvas
+    ctx_hsl.clearRect(0, 0, 500, 500);
+    console.log("strtx: ",startX_hsl);
+    console.log("mousx: ",mouseY_hsl);
+    // calculate the rectangle width/height based
+    // on starting vs current mouse position
+    var width_hsl = mouseX_hsl - startX_hsl;
+    var height_hsl = mouseY_hsl - startY_hsl;
+    console.log(width_hsl)
+    console.log(height_hsl)
+    console.log("x : "+mouseX_hsl)
+    console.log(mouseY_hsl)
+    global_hight_hsl = height_hsl;
+    global_width_hsl = width_hsl;
+    gloab_start_x_hsl = startX_hsl;
+    global_start_y_hsl = startY_hsl;
+
+    // draw a new rect from the start position 
+    // to the current mouse position
+    ctx_hsl.strokeRect(startX_hsl, startY_hsl, width_hsl, height_hsl);
+
+}
+
+// listen for mouse events
+$("#CanvasMockHsl").mousedown(function (e) {
+    handleMouseDown_hsl(e);
+});
+$("#CanvasMockHsl").mousemove(function (e) {
+    handleMouseMove_hsl(e);
+});
+$("#CanvasMockHsl").mouseup(function (e) {
+    handleMouseUp_hsl(e);
+});
+$("#CanvasMockHsl").mouseout(function (e) {
+    handleMouseOut_hsl(e);
+});
+
+</script>
 <script>
     function getIMG()
     {
         var myImageData = context.getImageData(0, 0, 500, 500);
+        var myImageData_hsl = context_hsl.getImageData(0, 0, 500, 500);
         console.log(myImageData);
         //var new_submit = document.createElement("input")
         var form = document.getElementById("hidden_form")
         //new_submit.type = "submit"
         var hidden_input = document.getElementById("hidden_input")
+       
+
         var hidden_input_width = document.getElementById("hidden_input2")
         var hidden_input_height = document.getElementById("hidden_input3")
         var hidden_input_startX = document.getElementById("hidden_input4")
         var hidden_input_startY = document.getElementById("hidden_input5")
+        var hidden_input_width_hsl = document.getElementById("hidden_input6")
+        var hidden_input_height_hsl = document.getElementById("hidden_input7")
+        var hidden_input_startX_hsl = document.getElementById("hidden_input8")
+        var hidden_input_startY_hsl = document.getElementById("hidden_input9")
        // form.insertBefore(new_submit, hidden_input);
         var return_data = [];
+       
         var counter = 0;
         for(var i = 0; i< myImageData.data.length; i++)
         {
@@ -452,6 +586,7 @@ $("#CanvasMock").mouseout(function (e) {
             {
                 return_data.push(myImageData.data[i]);
                 counter++;
+                
             }
             else
             {
@@ -461,10 +596,16 @@ $("#CanvasMock").mouseout(function (e) {
         
         
         hidden_input.value = JSON.stringify(return_data)
+      
         hidden_input_width.value = JSON.stringify(global_width)
         hidden_input_height.value =JSON.stringify(global_hight)
         hidden_input_startX.value = JSON.stringify(gloab_start_x)
         hidden_input_startY.value = JSON.stringify(global_start_y)
+
+        hidden_input_width_hsl.value = JSON.stringify(global_width_hsl)
+        hidden_input_height_hsl.value =JSON.stringify(global_hight_hsl)
+        hidden_input_startX_hsl.value = JSON.stringify(gloab_start_x_hsl)
+        hidden_input_startY_hsl.value = JSON.stringify(global_start_y_hsl)
         
         form.submit();
                           
