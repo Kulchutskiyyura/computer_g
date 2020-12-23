@@ -180,3 +180,21 @@ if (draw === 1) {
     setInterval(rotate_hexagon, 1100, global_points["{{top}}"][0], global_points["{{top}}"][1]);
   }
 }
+
+
+document.getElementById('btn-download').addEventListener("click", function(e) {
+  var canvas = document.querySelector('#my-canvas');
+
+  var dataURL = canvas.toDataURL("image/jpeg", 1.0);
+
+  downloadImage(dataURL, 'my-canvas.jpeg');
+});
+
+// Save | Download image
+function downloadImage(data, filename = 'untitled.jpeg') {
+  var a = document.createElement('a');
+  a.href = data;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+}

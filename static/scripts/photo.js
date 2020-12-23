@@ -448,6 +448,13 @@ $("#CanvasMockHsl").mouseout(function(e) {
   handleMouseOut_hsl(e);
 });
 
+var link = document.getElementById("save_img")
+link.addEventListener('click', function(ev) {
+  console.log("doenload")
+    link.href =  myCanvas_hsl.toDataURL();
+    link.download = "photo.png";
+}, false);
+
 function getIMG() {
   var myImageData = context.getImageData(0, 0, 500, 500);
   var myImageData_hsl = context_hsl.getImageData(0, 0, 500, 500);
