@@ -57,13 +57,14 @@ def fractal():
             print(limits)
             return_dict = plot_newton_fractal("npe1", power, constant,*limits)
     else:
-        return_dict = plot_newton_fractal("npe1",3, 5,*limits)
+        return_dict = {}
         global_dict.update({"power":3, "const":5, "color":1})
     json_obj = json.dumps(return_dict, cls=MyEncoder)
    # print(return_dict)
     #json_obj =json.dumps( [ [4,5,7],[7,9,10]])
     print("above return")
     return render_template('fractal.html', main=0,json_obj=json_obj, color_type=color_type)
+   
 
 
 @app.route("/color", methods=["Get","Post"])

@@ -115,6 +115,14 @@
     });
   </script>
 
+<script>
+  var link = document.getElementById("save_img")
+link.addEventListener('click', function(ev) {
+  console.log("doenload")
+    link.href =  myCanvas.toDataURL();
+    link.download = "fractal.png";
+}, false);
+</script>
 
 
 
