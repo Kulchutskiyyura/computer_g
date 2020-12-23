@@ -25,7 +25,7 @@ color_limits = {"yellow":[30,90],"green":[75,180],"blue":[180, 300]}
 
 
 
-@app.route("/56", methods=["Get","Post"])
+@app.route("/fra", methods=["Get","Post"])
 def main():
     return_dict = None
     global limits
@@ -66,7 +66,7 @@ def main():
     return render_template('fractal.html', json_obj=json_obj, color_type=color_type)
 
 
-@app.route("/", methods=["Get","Post"])
+@app.route("/nm", methods=["Get","Post"])
 def color_transformation():
     global init_hsl
     global init_rgb
@@ -181,4 +181,16 @@ def color_transformation():
             
     return render_template("photo.html", img_data=0,typee=0,rgb_data =0,width=500,height=500,start_x=0, start_y= 0,width_hsl=500,height_hsl=500,start_x_hsl=0, start_y_hsl= 0)
 
+
+@app.route("/", methods=["Get","Post"])
+def afine_transformation():
+    if request.method == "POST":
+      typee =  int(request.form.get("type"))
+      center_x =  float(request.form.get("center_x"))
+      center_y=  float(request.form.get("center_y"))
+      top_x =  float(request.form.get("top_x"))
+      top_y =  float(request.form.get("top_y"))
+      top =  request.form.get("top")
+      return render_template("afines.html",typee=typee,center_x=center_x,center_y=center_y,top_x=top_x,top_y=top_y,top=top,draw=1)
+    return render_template("afines.html",typee=-1,center_x=-1,center_y=-1,top_x=-1,top_y=-1,top=-1,draw=0)
 
