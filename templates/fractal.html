@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
+<canvas id="myCanvas"></canvas>
   <script>
     function send_ajax_teh(name, type) {
-      console.log("ajax work")
+     // console.log("ajax work")
       $.post(
         url = "http://127.0.0.1:5000/",
 
@@ -74,22 +75,14 @@
       "3": [255, 140, 0]
     }
     var color_models = [colors1, colors2, colors3, colors4]
-    var obj = {
-      {
-        json_obj
-      }
-    }
-    var color_type = {
-      {
-        color_type
-      }
-    }
+    var obj = {{json_obj}}
+    var color_type = {{color_type}}
     
     x = 0
     y = 0
     for (var i = 0; i < obj[0].length; i++) {
       arr = [0, 0, 0]
-      console.log(i)
+      //console.log(i)
       if (obj[0][i] != -1) {
         arr = color_models[color_type][obj[0][i]]
         //console.log(color_type)
@@ -123,7 +116,7 @@
   </script>
 
 
-<canvas id="myCanvas"></canvas>
+
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">

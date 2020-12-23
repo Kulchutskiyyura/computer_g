@@ -39,49 +39,65 @@
   </div>
 
   <div class="bottom-toolbar">
+    
+    
     <div class="inside-toolbar">
-      <input class="form-control" placeholder="Введіть назву файлу">
-    </div>
-    <div class="inside-toolbar">
-      <button class="btn-primary btn-sm">Зберегти</button>
-    </div>
-    <div class="inside-toolbar">
-      <button class="toolbar-button-sm">
-        <img height="15px" src="static\undo.png"> </button>
-      <button class="toolbar-button-sm">
-        <img height="15px" src="static\redo.png"> </button>
-    </div>
-    <div class="inside-toolbar">
-      <button class="toolbar-button-sm" type="button" data-toggle="modal" data-target="#myModal" >
+      <button class="toolbar-button-sm" type="button" data-toggle="modal" data-target="#myModal"  onclick="fracta_path()">
         <img height="20px" src="static\firework.png" alt="lorem"> Фрактал
       </button>
     </div>
     <div class="inside-toolbar">
-      <button class="toolbar-button-sm" type="button"  data-toggle="modal" data-target="#changeModel">
+      <button class="toolbar-button-sm" type="button"  data-toggle="modal" data-target="#changeModel" onclick="color_path()">
         <img src="static\gallery.png"  height="20px" alt="lorem">Колірна модель
      </button>
-      <button class="toolbar-button-sm" type="button"  data-toggle="modal" data-target="#colorModal">
+      <button class="toolbar-button-sm" type="button"  data-toggle="modal" data-target="#colorModal" onclick="color_path()">
          <img src="static\palette.png"  height="20px" alt="lorem"> Змінити яскравість кольорів
       </button>
     </div>
    
     <div class="inside-toolbar">
-      <button class="toolbar-button-sm"  type="button"  data-toggle="modal" data-target="#afineModal">
-        <img height="15px" src="static\shape.png" alt="lorem"> Фігура</button>
+      <button class="toolbar-button-sm"  type="button"  data-toggle="modal" data-target="#afineModal" onclick="afine_path()">
+        <img height="15px" src="static\shape.png" alt="lorem"> Афінні перетворення</button>
     </div>
-    <div class="inside-toolbar">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="ch">
-        <label class="form-check-label" for="ch">
-          Координатна сітка
-        </label>
-      </div>
-    </div>
-
-    <div class="inside-toolbar">
-      <input class="form-control" type="number">
-    </div>
+    
+    
   </div>
+  <script>
+    let is_main = {{main}}
+
+    function fracta_path()
+    {
+      if(is_main===1 || document.location.href!='http://127.0.0.1:5000/fractal')
+      {
+        document.location='/fractal'
+      }
+      else{
+
+      }
+    }
+
+    function color_path()
+    {
+      if(is_main===1 || document.location.href!='http://127.0.0.1:5000/color')
+      {
+        document.location='/color'
+      }
+      else{
+        console.log(document.location)
+      }
+    }
+
+    function afine_path()
+    {
+      if(is_main===1 || document.location.href!='http://127.0.0.1:5000/afine')
+      {
+        document.location='/afine'
+      }
+      else{
+        console.log(document.location)
+      }
+    }
+  </script>
 </body>
 
 
