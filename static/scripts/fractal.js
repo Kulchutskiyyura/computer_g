@@ -67,16 +67,8 @@ colors4 = {
   "3": [255, 140, 0]
 }
 var color_models = [colors1, colors2, colors3, colors4]
-var obj = {
-  {
-    json_obj
-  }
-}
-var color_type = {
-  {
-    color_type
-  }
-}
+var obj = {{json_obj}}
+var color_type = {{color_type}}
 
 x = 0
 y = 0

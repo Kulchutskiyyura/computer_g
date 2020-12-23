@@ -1,22 +1,6 @@
 // Initializing the canvas with coordinates
 var b = JXG.JSXGraph.initBoard('box', {
-  boundingbox: [-{
-    {
-      max_x
-    }
-  }, -{
-    {
-      max_y
-    }
-  }, {
-    {
-      max_x
-    }
-  }, {
-    {
-      max_y
-    }
-  }],
+  boundingbox: [-{{max_x}}, -{{max_y}}, {{max_x}}, {{max_y}}],
   axis: true,
   grid: true
 });

@@ -47,65 +47,21 @@ var context_mock_hsl = myCanvas_mock_hsl.getContext('2d');
 myCanvas_mock_hsl.width = 500;
 myCanvas_mock_hsl.height = 500;
 
-var img_info = {
-  {
-    img_data
-  }
-};
-var rgb_dataa = {
-  {
-    rgb_data
-  }
-}
-var type = {
-  {
-    typee
-  }
-};
-var global_hight = Number({
-  {
-    height
-  }
-});
-var global_width = Number({
-  {
-    width
-  }
-});
+var img_info = {{img_data}};
+var rgb_dataa = {{rgb_data}}
+var type = {{typee}};
+var global_hight = Number({{height}});
+var global_width = Number({{width}});
 console.log(global_hight)
 console.log(global_width)
-var gloab_start_x = Number({
-  {
-    start_x
-  }
-});
-var global_start_y = Number({
-  {
-    start_y
-  }
-});
+var gloab_start_x = Number({{start_x}});
+var global_start_y = Number({{start_y}});
 
-var global_hight_hsl = Number({
-  {
-    height_hsl
-  }
-});
-var global_width_hsl = Number({
-  {
-    width_hsl
-  }
-});
+var global_hight_hsl = Number({{height_hsl}});
+var global_width_hsl = Number({{width_hsl}});
 
-var gloab_start_x_hsl = Number({
-  {
-    start_x_hsl
-  }
-});
-var global_start_y_hsl = Number({
-  {
-    start_y_hsl
-  }
-});
+var gloab_start_x_hsl = Number({{start_x_hsl}});
+var global_start_y_hsl = Number({{start_y_hsl}});
 
 var use_htl = true;
 if (img_info != 0) {
