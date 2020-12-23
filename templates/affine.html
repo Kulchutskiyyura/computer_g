@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="modal fade" id="afineModal" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Створити шестикутник</h3><br>
+        <p><b>Зверніть увагу!</b> Шестикутник відмальовується за центром та першою вершиною. Кожна наступна вершина відкладається на 60 градусів по годинниковій осі.</p>
+      </div>
+      <form method="POST" id="hidden_form">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group col-sm-6">
+              <label for="top_x">Максимальний X</label>
+              <input class="form-control" id="max_x" name="max_x">
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="top_x">Максимальний Y</label>
+              <input class="form-control" id="max_y" name="max_y">
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="center_x">X центру шестикутника</label>
+              <input class="form-control" id="center_x" name="center_x">
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="center_y">Y центру шестикутника</label>
+              <input class="form-control" id="center_y" name="center_y">
+            </div>
+          </div>
+          <div class="form-row">
+
+            <div class="form-group col-sm-6">
+              <label for="top_x">X вершини</label>
+              <input class="form-control" id="top_x" name="top_x">
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="top_y">Y вершини</label>
+              <input class="form-control" id="top_y" name="top_y">
+            </div>
+          </div>
+          <div class="form-group col-sm-12">
+            <select class="form-control" id="vertice-check" name="type" >
+              <option value="1">Обертання навколо вершини</option>
+              <option value="0">Обертання навколо центру</option>
+            </select>
+          </div>
+          <div class="form-group col-sm-12" id="tops_list">
+            <label for="vertice-option">Вершина повороту</label>
+            <select class="form-control" id="vertice-option" name="top">
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <input type="submit" value="Продовжити" class="btn btn-primary">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="box" class="jxgbox" style="width:500px; height:500px; margin-left:500px ;"></div>
+{% endblock %}

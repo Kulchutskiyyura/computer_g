@@ -77,7 +77,7 @@ def color_transformation():
 
             img_data_hsl = json.loads(request.form.get("data_hsl"))
         #print("reguest: ", request.form.get("data_hsl"),"    "  ,img_data_hsl)
-        
+
             width =  int(json.loads(request.form.get("width")))
             height =  int(json.loads(request.form["height"]))
             start_x =  int(json.loads(request.form.get("start_x")))
@@ -96,7 +96,7 @@ def color_transformation():
                 i = 0
                 while(i<int(len(img_data))):
             #c = Color(rgb=(img_data[i]/255,img_data[i+1]/255,img_data[i+2]/255))
-          
+
                     result = rgb_to_hsl(img_data[i],img_data[i+1],img_data[i+2])
                     img_data[i] = result[0] # h_convertor( , h_range)
                     img_data[i+1] = result[1] #s_convertor(, s_range)
@@ -111,12 +111,12 @@ def color_transformation():
                 if img_data_hsl:
                     img_data = img_data_hsl
                 while(i<int(len(img_data))):
-           
-          
+
+
                     result = rgb_to_hsl(img_data[i],img_data[i+1],img_data[i+2])
                     img_data[i] = result[0] # h_convertor( , h_range)
                     img_data[i+1] = result[1] #s_convertor(, s_range)
-          
+
                     img_data[i+2] = result[2]
                     i+=3
                 return render_template("photo.html",main=0, img_data=img_data,typee=1, rgb_data= rgb_data, width=init_hsl[0],height=init_hsl[1],start_x=init_hsl[2] ,start_y= init_hsl[3],width_hsl=width_hsl,height_hsl=height_hsl,start_x_hsl=start_x_hsl, start_y_hsl= start_y_hsl)
@@ -127,12 +127,12 @@ def color_transformation():
        # h_range = float(request.form.get("hueRange"))/100
         #s_range = float(request.form.get("saturationRange"))/100
             l_range = float(request.form.get("lightnessRange"))/100
-        
+
             img_data = json.loads(request.form.get("data"))
 
             img_data_hsl = json.loads(request.form.get("data_hsl"))
         #print("reguest: ", request.form.get("data_hsl"),"    "  ,img_data_hsl)
-        
+
             width =  int(json.loads(request.form.get("width")))
             height =  int(json.loads(request.form["height"]))
             start_x =  int(json.loads(request.form.get("start_x")))
@@ -148,18 +148,18 @@ def color_transformation():
             print(start_y_hsl)
             #print(type(img_data))
             i = 0
-     
+
 
             rgb_data =  img_data.copy()
 
             if img_data_hsl:
                 img_data = img_data_hsl
-            
+
             print(color)
             count = 0
             while(i<int(len(img_data))):
             #c = Color(rgb=(img_data[i]/255,img_data[i+1]/255,img_data[i+2]/255))
-          
+
                 result = rgb_to_hsl(img_data[i],img_data[i+1],img_data[i+2])
                 img_data[i] = result[0] # h_convertor( , h_range)
                 img_data[i+1] = result[1] #s_convertor(, s_range)
@@ -177,12 +177,12 @@ def color_transformation():
             #hsl_list.extend(img_data)
             print(count)
             return render_template("photo.html",main=0, img_data=img_data,typee=1, rgb_data= rgb_data, width=init_hsl[0],height=init_hsl[1],start_x=init_hsl[2], start_y= init_hsl[3],width_hsl=init_rgb[0],height_hsl=init_rgb[1],start_x_hsl=init_rgb[2], start_y_hsl= init_rgb[3])
-        
-            
+
+
     return render_template("photo.html", main=0,img_data=0,typee=0,rgb_data =0,width=500,height=500,start_x=0, start_y= 0,width_hsl=500,height_hsl=500,start_x_hsl=0, start_y_hsl= 0)
 
 
-@app.route("/afine", methods=["Get","Post"])
+@app.route("/affine", methods=["Get","Post"])
 def afine_transformation():
     if request.method == "POST":
       typee =  int(request.form.get("type"))
@@ -193,12 +193,11 @@ def afine_transformation():
       max_x =  float(request.form.get("max_x"))
       max_y =  float(request.form.get("max_y"))
       top =  request.form.get("top")
-      return render_template("afines.html",main=0,typee=typee,center_x=center_x,center_y=center_y,top_x=top_x,top_y=top_y,top=top,draw=1,max_x=max_x,max_y=max_y)
-    return render_template("afines.html",main=0,typee=-1,center_x=-1,center_y=-1,top_x=-1,top_y=-1,top=-1,draw=0,max_x=10,max_y=10)
+      return render_template("affine.html",main=0,typee=typee,center_x=center_x,center_y=center_y,top_x=top_x,top_y=top_y,top=top,draw=1,max_x=max_x,max_y=max_y)
+    return render_template("affine.html",main=0,typee=-1,center_x=-1,center_y=-1,top_x=-1,top_y=-1,top=-1,draw=0,max_x=10,max_y=10)
 
 
 
 @app.route("/", methods=["Get","Post"])
 def main():
     return render_template("base.html",main=1)
-

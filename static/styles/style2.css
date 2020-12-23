@@ -118,3 +118,44 @@ canvas {
 .result-canvas:hover .tooltiptext {
   display: block;
 }
+
+
+   #myCanvas
+   {
+       margin-left:150px ;
+
+       background:transparent;
+   }
+   #CanvasMock
+   {
+       opacity:0.5;
+       margin-left:150px ;
+
+   }
+
+
+       .canvas_div
+       {
+           justify-content:center;
+       }
+       #myCanvas
+       {
+           margin-left:150px ;
+       }
+       #CanvasMock
+       {
+           opacity:0.5;
+           margin-left:150px ;
+           background:transparent;
+       }
+       #myCanvas_hsl
+       {
+           margin-left:880px ;
+
+
+       }
+       #CanvasMockHsl
+       {
+           background:transparent;
+           margin-left:880px ;
+       }

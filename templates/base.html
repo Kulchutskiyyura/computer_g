@@ -8,6 +8,10 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style2.css') }}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="{{url_for('static', filename='scripts/fractal.js')}}"></script>
+  <script src="{{url_for('static', filename='scripts/photo.js')}}"></script>
+  <script src="{{url_for('static', filename='scripts/affine.js')}}"></script>
+
 
 
   <link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css" />
@@ -39,8 +43,8 @@
   </div>
 
   <div class="bottom-toolbar">
-    
-    
+
+
     <div class="inside-toolbar">
       <button class="toolbar-button-sm" type="button" data-toggle="modal" data-target="#myModal"  onclick="fracta_path()">
         <img height="20px" src="static\firework.png" alt="lorem"> Фрактал
@@ -54,13 +58,13 @@
          <img src="static\palette.png"  height="20px" alt="lorem"> Змінити яскравість кольорів
       </button>
     </div>
-   
+
     <div class="inside-toolbar">
       <button class="toolbar-button-sm"  type="button"  data-toggle="modal" data-target="#afineModal" onclick="afine_path()">
         <img height="15px" src="static\shape.png" alt="lorem"> Афінні перетворення</button>
     </div>
-    
-    
+
+
   </div>
   <script>
     let is_main = {{main}}
@@ -89,9 +93,9 @@
 
     function afine_path()
     {
-      if(is_main===1 || document.location.href!='http://127.0.0.1:5000/afine')
+      if(is_main===1 || document.location.href!='http://127.0.0.1:5000/affine')
       {
-        document.location='/afine'
+        document.location='/affine'
       }
       else{
         console.log(document.location)
